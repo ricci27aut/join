@@ -1,0 +1,431 @@
+.overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(209, 209, 209, 0.31);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    z-index: 2000;
+}
+
+.hidden {
+    display: none;
+}
+
+.openCardOverlay {
+    transform: translateX(0);
+}
+
+.cardOverlay {
+    position: absolute;
+    left: calc(50% - 262px);
+    top: 10%;
+    width: 525px;
+    background-color: white;
+    border: 2px solid white;
+    border-radius: 24px;
+    padding-right: 6px;
+    box-shadow: 0px 0px 10px 3px rgba(0, 0, 0, 0.08);
+    transition: transform 300ms ease-in-out;
+    transform: translateX(100vw);
+    z-index: 2001;
+    max-height: 800px;
+    overflow-y: hidden;
+    box-sizing: border-box;
+    will-change: transform;
+}
+
+.cardOverlay.show {
+    transform: translateX(0);
+}
+
+.cardOverlayInner {
+    display: flex;
+    gap: 24px;
+    flex-direction: column;
+    overflow-y: auto;
+    max-height: 800px;
+    padding: 32px;
+    box-sizing: border-box;
+}
+
+.cardOverlayInnerEdit {
+    align-items: end;
+}
+
+.cardOverlay::-webkit-scrollbar {
+    width: 8px;
+    padding-right: 50px;
+}
+
+.cardOverlay::-webkit-scrollbar-track {
+    background: transparent;
+    border-radius: 24px;
+}
+
+.cardOverlay::-webkit-scrollbar-thumb {
+    background-color: rgba(0, 0, 0, 0.4);
+    border-radius: 24px;
+    border-top: 6px solid transparent;
+    border-bottom: 6px solid transparent;
+    background-clip: padding-box;
+}
+
+.cardOverlay p {
+    color: #2A3647;
+}
+
+.taskCategoryDiv {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.taskOverlayCategory {
+    color: white;
+    display: flex;
+    font-size: 19px;
+    border-radius: 8px;
+    padding: 4px 16px 4px 16px;
+    justify-content: center;
+}
+
+.closeImg {
+    width: 24px;
+    height: 24px;
+    position: relative;
+    cursor: pointer;
+}
+
+.closeImg::before,
+.closeImg::after {
+    content: "";
+    position: absolute;
+    left: 11px;
+    top: 5px;
+    width: 2px;
+    height: 14px;
+    background-color: black;
+}
+
+.closeImg::before {
+    transform: rotate(45deg);
+}
+
+.closeImg::after {
+    transform: rotate(-45deg);
+}
+
+.closeImg:hover {
+    background-color: #D1D1D1;
+    border-radius: 50%;
+}
+
+.taskOverlayDescription {
+    font-size: 20px;
+}
+
+.taskOverlayName {
+    font-size: 61px;
+    font-weight: 700;
+}
+
+.fontSize20 {
+    font-size: 20px;
+}
+
+.dueDateOverlay {
+    display: flex;
+    justify-content: flex-start;
+    flex-direction: row;
+    align-items: center;
+}
+
+.dueDateOverlayDiv {
+    display: flex;
+    padding-left: 24px;
+    font-size: 24px;
+}
+
+.priorityOverlay {
+    display: flex;
+    align-items: center;
+    flex-direction: row;
+}
+
+.priorityOverlayDiv {
+    display: flex;
+    flex-direction: row-reverse;
+    justify-content: center;
+    align-items: center;
+    padding-left: 38px;
+    gap: 16px;
+    font-size: 20px;
+}
+
+.outerScaleOverlay {
+    display: flex;
+    justify-content: flex-start;
+    width: 128px;
+    height: 8px;
+    background-color: #F4F4F4;
+    border-radius: 8px;
+}
+
+.innerScaleOverlay {
+    display: flex;
+    height: 8px;
+    background-color: #4589FF;
+    border-radius: 16px;
+}
+
+.taskOverlayAssignment {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: flex-start;
+    gap: 10px;
+}
+
+.assignedToOverlay {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    padding: 7px 16px 0px 16px;
+    width: 100%;
+}
+
+.assignedToInitialDiv {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    font-size: 19px;
+}
+
+.overlaySubtaskDiv {
+    display: flex;
+    padding-left: 16px;
+    gap: 16px;
+    font-size: 16px;
+    align-items: center;
+}
+
+.subTaskHeadTitle {
+    font-size: 20px;
+}
+
+.overlaySubtasks {
+    display: flex;
+    font-size: 12px;
+    gap: 8px;
+    align-items: flex-start;
+    justify-content: center;
+    flex-direction: column;
+    padding: 7px 16px 7px 0px;
+}
+
+.overlaySubtaskCheckbox {
+    display: inline-flex;
+    width: 24px;
+    height: 24px;
+    align-items: center;
+    cursor: pointer;
+    font-size: 16px;
+    user-select: none;
+    position: relative;
+    justify-content: center;
+    margin: 0;
+}
+
+.overlaySubtaskCheckbox:hover input:checked+.overlaySubtaskCheckmark,
+.overlaySubtaskCheckbox:hover {
+    background-color: #D1D1D1;
+}
+
+.overlaySubtaskCheckbox:hover {
+    border-radius: 50%;
+}
+
+.overlaySubtaskCheckbox:hover .overlaySubtaskCheckmark,
+.overlaySubtaskCheckmark:hover {
+    background-color: #D1D1D1;
+}
+
+.overlaySubtaskCheckbox:hover .overlaySubtaskCheckmark::before {
+    border-color: #D1D1D1;
+}
+
+.overlaySubtaskCheckbox input {
+    display: none;
+}
+
+.overlaySubtaskCheckbox:hover .overlaySubtaskCheckmark::before {
+    height: 8px;
+    left: 7px;
+    top: -7px;
+    translate: -4px 4px;
+}
+
+.overlaySubtaskCheckbox .overlaySubtaskCheckmark {
+    width: 16px;
+    height: 16px;
+    background-color: white;
+    border-radius: 4px;
+    position: relative;
+    z-index: 2;
+    border: 2px solid #2A3647;
+    box-sizing: border-box;
+    overflow: visible;
+}
+
+/* Hintergrund ändern bei checked */
+.overlaySubtaskCheckbox input:checked+.overlaySubtaskCheckmark {
+    background-color: white;
+}
+
+/* Weißer Umriss-Haken (liegt unten) */
+.overlaySubtaskCheckbox .overlaySubtaskCheckmark::before {
+    content: "";
+    position: absolute;
+    display: none;
+    left: 6px;
+    top: -10px;
+    width: 6px;
+    height: 16px;
+    border: solid white;
+    border-width: 0 5px 5px 0;
+    transform: rotate(45deg);
+    z-index: 1;
+}
+
+/* Dunkler innerer Haken (liegt oben) */
+.overlaySubtaskCheckbox .overlaySubtaskCheckmark::after {
+    content: "";
+    position: absolute;
+    display: none;
+    left: 7px;
+    top: -7px;
+    width: 6px;
+    height: 14px;
+    border: solid #2A3647;
+    border-width: 0 2px 2px 0;
+    transform: rotate(45deg);
+    z-index: 2;
+}
+
+/* Haken anzeigen, wenn checked */
+.overlaySubtaskCheckbox input:checked+.overlaySubtaskCheckmark::before,
+.overlaySubtaskCheckbox input:checked+.overlaySubtaskCheckmark::after {
+    display: block;
+}
+
+.editDeleteDiv {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    gap: 8px;
+}
+
+.editDeleteImg {
+    height: 18px;
+    width: 16px;
+}
+
+.editDeleteVector {
+    height: 24px;
+}
+
+.deleteSectionDiv {
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.deleteSectionDiv:hover {
+    color: #29ABE2;
+}
+
+.deleteSectionDiv:hover img:hover,
+.deleteSectionDiv:hover img {
+    content: url(../assets/icons/delete-hover.png);
+}
+
+.editSectionDiv {
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.editSectionDiv:hover {
+    color: #29ABE2;
+}
+
+.editSectionDiv:hover img:hover,
+.editSectionDiv:hover img {
+    content: url(../assets/icons/edit-hover.png);
+}
+
+.btn_edit_confirm {
+    width: 89px;
+}
+
+.btn_edit_confirm:disabled {
+    opacity: 0.6;
+    cursor: auto;
+}
+
+.btn_edit_confirm:disabled:hover {
+    background-color: #2A3647;
+    box-shadow: none;
+    border-color: #2A3647;
+}
+
+@media (max-width: 550px) {
+    .cardOverlay {
+        left: 0;
+        top: 0;
+        width: 100%;
+        border-radius: 0;
+        padding: 0;
+        max-height: unset;
+        height: calc(100vh - 80px);
+    }
+
+    .cardOverlayInner {
+        padding: 12px;
+        height: 100%;
+        max-height: unset;
+    }
+
+    .cardOverlayInnerEdit {
+        align-items: flex-start;
+    }
+
+    .editDeleteDiv {
+        flex: 1;
+        align-items: end;
+        padding-bottom: 12px;
+    }
+
+    .closeOverlayContainer {
+        width: 100%;
+        display: flex;
+        justify-content: end;
+    }
+
+    .addTaskButtonOverlayContainer {
+        width: 100%;
+        display: flex;
+        justify-content: end;
+    }
+
+    .taskOverlayName {
+        font-size: 36px;
+    }
+}

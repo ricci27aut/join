@@ -1,0 +1,400 @@
+body,
+html {
+    margin: 0;
+    overflow-x: hidden;
+}
+
+.maxWidth {
+    max-width: 1440px;
+}
+
+.rightSection {
+    background-color: rgb(246, 247, 248);
+    padding-left: 232px;
+    width: 100%;
+    height: 100%;
+}
+
+.taskDescription{
+    color: #A8A8A8;
+}
+
+main {
+    width: 100%;
+    background-color: rgb(246, 247, 248);
+    display: flex;
+    flex-direction: column;
+    padding-bottom: 84px;
+}
+
+.boardTemplate {
+    display: flex;
+    flex-direction: column;
+    color: black;
+    height: 100%;
+    padding-left: 24px;
+    padding-right: 24px;
+    align-items: center;
+}
+
+.boardHeader {
+    display: flex;
+    width: 100%;
+    justify-content: space-between;
+    flex-direction: row;
+    align-items: center;
+    padding-top: 86px;
+    padding-bottom: 42px;
+}
+
+.boardTitle {
+    font-size: 61px;
+    font-weight: 700;
+}
+
+.boardTable {
+    display: flex;
+    flex: 1;
+    gap: 20px;
+}
+
+.findAddElement {
+    display: flex;
+    gap: 20px;
+}
+
+.taskSearch {
+    height: 48px;
+    display: flex;
+    align-items: center;
+    background-color: white;
+    padding: 8px 16px;
+    border-radius: 10px;
+    border: 1px solid #A8A8A8;
+    gap: 10px;
+}
+
+.taskSearch:hover {
+    border-color: #29ABE2;
+}
+
+.taskSearchInput {
+    font-size: 20px;
+    height: 100%;
+    width: 224px;
+}
+
+.searchVector {
+    height: 31px;
+}
+
+.searchGlass {
+    cursor: pointer;
+    padding: 7px;
+}
+
+.addTaskButton,
+.addTaskButtonResp,
+.addTaskButtonOverlay {
+    display: flex;
+    height: 48px;
+    font-size: 21px;
+    padding: 8px 16px;
+    border-radius: 10px;
+    align-items: center;
+    border: 1px solid #2A3647;
+    background-color: #2A3647;
+    color: white;
+    gap: 4px;
+}
+
+.addTaskButton:hover,
+.addTaskButtonResp:hover,
+.addTaskButtonOverlay:hover {
+    background-color: #29ABE2;
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.3);
+    border-color: #29ABE2;
+}
+
+.addTaskButtonResp {
+    display: none;
+    height: 40px;
+    width: 40px;
+}
+
+.addPlus {
+    height: 19px;
+}
+
+.boardList {
+    width: 24%;
+    gap: 16px;
+    height: 100%;
+}
+
+.boardListHeader {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 252px;
+    padding-bottom: 16px;
+}
+
+.taskList {
+    display: flex;
+    gap: 10px;
+    flex-direction: column;
+    padding-bottom: 16px;
+}
+
+.plusButton {
+    cursor: pointer;
+    display: flex;
+    height: 24px;
+    width: 24px;
+    border: 2px solid #2A3647;
+    border-radius: 8px;
+    justify-content: center;
+    align-items: center;
+}
+
+.plusButton:hover {
+    border-color: #29ABE2;
+}
+
+.plusHorizontally {
+    position: absolute;
+    background-color: #2A3647;
+    height: 2px;
+    width: 8px;
+}
+
+.plusButton:hover .plusHorizontally {
+    background-color: #29ABE2;
+}
+
+.plusVertically {
+    position: sticky;
+    background-color: #2A3647;
+    height: 8px;
+    width: 2px;
+}
+
+.plusButton:hover .plusVertically {
+    background-color: #29ABE2;
+}
+
+.emptyTask {
+    display: flex;
+    height: 48px;
+    padding: 5px;
+    background-color: #E7E7E7;
+    border: 1px dashed #A8A8A8;
+    border-radius: 10px;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+
+.taskFolder {
+    display: flex;
+    flex-direction: column;
+    min-height: 270px;
+}
+
+.positionAddInitials {
+    margin-left: -18px;
+}
+
+.stopScrolling {
+    height: 100vh;
+    overflow-y: hidden;
+}
+
+.add-task-style-board {
+    border-radius: 30px;
+    background-color: white;
+    padding: 24px;
+    margin-bottom: 124px;
+}
+
+.addTaskBoardContainer {
+    position: fixed;
+    width: 100%;
+    height: 100vh;
+    background-color: #d1d1d14f;
+    z-index: 9991;
+    top: 0;
+    left: 0;
+}
+
+.addTaskBoard {
+    position: absolute;
+    top: 10%;
+    left: calc(50% - 500px);
+    transform: translateX(100%);
+    transition: transform 300ms ease-in-out;
+    z-index: 9992;
+    width: 1000px;
+    right: 0;
+}
+
+.open_addTask {
+    transform: translateX(0);
+}
+
+.closed_addTask {
+    transform: translateX(8000px);
+}
+
+.add-task-board-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+}
+
+.add-btn {
+    text-align: center;
+    width: 24px;
+    height: 24px;
+    font-size: 18px;
+}
+
+.add-btn:hover {
+    color: #29ABE2;
+}
+
+.dropzoneCard {
+    width: 252px;
+    min-width: 252px;
+    min-height: 244px;
+    border: 2px dashed #A8A8A8;
+    border-radius: 24px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: border 0.2s;
+}
+
+.moreCardMembers {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    border-radius: 50%;
+    border: 2px solid white;
+    width: 32px;
+    height: 32px;
+    background-color: rgb(177, 179, 183);
+    font-size: 16px;
+}
+
+@media (max-width: 1350px) {
+    .rightSection {
+        padding-left: 0;
+    }
+}
+
+@media (max-width: 1150px) {
+
+    .addTaskBoard {
+        width: 500px;
+        left: calc(50% - 250px);
+    }
+
+    .boardTable {
+        display: flex;
+        flex: 1;
+        gap: 20px;
+        flex-direction: column;
+        justify-content: center;
+        margin-bottom: 20px;
+        width: 100%;
+    }
+
+    .boardListHeader {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        width: 100%;
+        padding-bottom: 16px;
+    }
+
+    .boardList {
+        width: 100%;
+    }
+
+    .taskList {
+        display: flex;
+        gap: 0px;
+        flex-direction: row;
+        padding-bottom: 8px;
+        padding-top: 8px;
+        padding-left: 8px;
+        flex-wrap: nowrap;
+        overflow-x: auto;
+    }
+
+    .taskFolder {
+        display: flex;
+        justify-content: flex-start;
+        flex-direction: row;
+        gap: 0px;
+        padding: 6px;
+    }
+
+    .taskFolder::-webkit-scrollbar {
+        display: none;
+    }
+
+    .dropzoneCard {
+        margin-bottom: 10px;
+    }
+
+    .emptyTask {
+        margin-bottom: 10px;
+    }
+}
+
+@media (max-width: 850px) {
+    .addTaskButtonResp {
+        display: flex;
+        padding: 0;
+        justify-content: center;
+    }
+
+    .addTaskButton {
+        display: none;
+    }
+
+    .boardHeader {
+        flex-direction: column;
+    }
+
+    .boardTitle {
+        display: flex;
+        align-items: center;
+        width: 100%;
+        justify-content: space-between;
+    }
+
+    .findAddElement {
+        display: unset;
+        width: 100%;
+    }
+
+    .taskSearchInput {
+        width: 100%;
+    }
+}
+
+@media (max-width: 500px) {
+    .boardTemplate {
+        padding-left: 12px;
+        padding-right: 12px;
+    }
+
+    .boardTitle {
+        font-size: 47px;
+    }
+}

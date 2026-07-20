@@ -1,0 +1,91 @@
+
+.card {
+    cursor: pointer;
+    display: flex;
+    width: 252px;
+    min-width: 252px;
+    background-color: white;
+    gap: 24px;
+    flex-direction: column;
+    border: 2px solid white;
+    border-radius: 24px;
+    padding: 16px;
+    box-shadow: 0px 0px 10px 3px rgba(0, 0, 0, 0.08);
+    transition: transform 0.2s ease;
+    touch-action: none;
+    user-select: none;
+}
+
+.card:hover {
+    border: 2px solid #29ABE2;
+}
+
+.card.touched {
+  border: 2px solid #29ABE2;
+}
+
+.taskCategory {
+    color: white;
+    display: flex;
+    font-size: 19px;
+    border-radius: 8px;
+    padding: 4px 16px 4px 16px;
+    justify-content: center;
+}
+
+.subtasks {
+    display: flex;
+    font-size: 12px;
+    gap: 10px;
+    align-items: center;
+    justify-content: center;
+}
+
+.innerScale {
+    display: flex;
+    height: 8px;
+    background-color: #4589FF;
+    border-radius: 16px;
+}
+
+.outerScale {
+    display: flex;
+    justify-content: flex-start;
+    width: 128px;
+    height: 8px;
+    background-color: #F4F4F4;
+    border-radius: 8px;
+}
+
+.assignedTo {
+    display: flex;
+    flex-direction: row;
+    gap: 10px;
+}
+
+.taskAssignment {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    overflow: auto;
+}
+
+.assignedToInitial {
+    border: 1px solid #FFFFFF;
+    border-radius: 50%;
+    color: #FFFFFF;
+    display: flex;
+    height: 32px;
+    width: 32px;
+    font-size: 14px;
+    justify-content: center;
+    align-items: center;
+}
+
+@media (max-width: 1150px) {
+    .card {
+        margin-right: 16px;
+        margin-bottom: 10px;
+    }
+}

@@ -1,0 +1,86 @@
+body {
+    margin: 0;
+}
+
+.txtContainer p {
+    font-size: 16px;
+    font-weight: 400;
+    width: 100%;
+    margin-bottom: 24px;
+}
+
+h1 {
+    font-size: 73px;
+    font-weight: 700;
+    margin-top: 70px;
+    margin-left: 328px;
+}
+
+h2 {
+    font-size: 27px;
+    font-weight: 700;
+}
+
+.h2mgb {
+    margin-bottom: 24px;
+}
+
+h3 {
+    font-size: 20px;
+    font-weight: 700;
+}
+
+.txtContainer {
+    height: 100%;
+    margin-top: 36px;
+    margin-left: 328px;
+    margin-right: 36px;
+}
+
+.guideBoard {
+    display: flex;
+    gap: 32px;
+}
+
+.guideContacts {
+    display: flex;
+    gap: 32px;
+}
+
+.guideAddCard {
+    display: flex;
+    gap: 32px;
+}
+
+.guideMoveCard {
+    display: flex;
+    gap: 32px;
+}
+
+.guideDelCard {
+    display: flex;
+    gap: 32px;
+}
+
+.highlight {
+    color: #29ABE2;
+}
+
+@media (max-width: 1350px) {
+    .txtContainer, h1 {
+        margin-left: 86px;
+    }
+}
+
+@media (max-width: 550px) {
+    .txtContainer {
+        margin-left: 12px;
+        margin-right: 12px;
+    }
+
+    h1 {
+        font-size: 47px;
+        margin-left: 12px;
+        margin-right: 12px;
+    }
+}

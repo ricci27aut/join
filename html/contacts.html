@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Contacts</title>
+  <link rel="shortcut icon" href="../assets/icons/favicon.png" type="image/x-icon">
+  <link rel="stylesheet" href="../styles/menu-style.css" />
+  <link rel="stylesheet" href="../styles/contacts.css" />
+  <link rel="stylesheet" href="../styles/style.css" />
+  <link rel="stylesheet" href="../styles/header-style.css" />
+  <link rel="stylesheet" href="../styles/assets.css" />
+  <script src="https://www.gstatic.com/firebasejs/10.11.0/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/10.11.0/firebase-database-compat.js"></script>
+  <script defer src="../assets/templates/menu.js"></script>
+  <script defer src="../assets/templates/header.js"></script>
+  <script defer src="../assets/templates/contacts_tamplate.js"></script>
+  <script defer src="../js/data.js"></script>
+  <script defer src="../js/contacts.js"></script>
+  <script defer src="../js/contacts_v2.js"></script>
+</head>
+
+<body onresize="toogleVieW(),highlightLink()" onload="initContacts()">
+  <header id="headerTemplate"></header>
+
+  <main class="contacts-main">
+    <div id="menuTemplate"></div>
+
+    <section class="contacts-section">
+      <div class="contacts-list show">
+        <div class="contacts-header">
+          <button onclick="openAddContact(); alertremove()" class="add-button">
+            Add new contact
+            <img src="../assets/icons/person_add.png" alt="">
+          </button>
+        </div>
+        <div class="contacts-scroll-area" id="contactList">
+        </div>
+        <button onclick="openAddContact(); alertremove()" class="add-button-mobile">
+        </button>
+      </div>
+      </div>
+      <div class="contact-details" id="contactDetails">
+        <button class="back-button" onclick="backToList()"><img src="../assets/icons/arrow-left-line.png"
+            alt="arrow-left-line"></button>
+        <h2 class="contact-title">
+          Contacts <span class="subtitle">
+            <div class="highlight"></div> Better with a team
+          </span>
+          <div class="highlight-mobile"></div>
+        </h2>
+        <div id="contactView">
+        </div>
+        <div class="contact-view-menu-mobile" id="sliderTrigger">
+          <img src="../assets/icons/more_vert.png" alt="more_vert">
+        </div>
+        <div id="contactsSlider" class="contacts-slider">
+          <ul>
+            <li>
+              <button class="edit-menu-btn" onclick="editContact('${key}')"><img src="../assets/icons/edit-v2.png"
+                  alt="">Edit</button>
+            </li>
+            <li>
+              <button class="delete-menu-btn" onclick="deleteContact('${key}')"><img src="../assets/icons/delete.png"
+                  alt="">Delete</button>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </section>
+    <div id="addContactOverlay" class="overlay hidden">
+      <div class="overlay-content">
+        <div class="overlay-header">
+          <img src="../assets/icons/join-logo.png" alt="Join Logo">
+          <h2>Add contact</h2>
+          <p>Tasks are better with a team!</p>
+          <div class="border-blue"></div>
+        </div>
+        <button class="close-overlay-desktop" onclick="closeAddContact()">×</button>
+        <div class="flex-column flex-align-center padding-bottom">
+          <div class="overlay-body">
+            <div class="add-contact-icon">
+              <img src="../assets/icons/person-white.png" alt="Add contact icon">
+            </div>
+            <div class="contact-form">
+              <div class="subtask-container">
+                <input type="text" id="contactName" placeholder="Name" onclick="alertremove()">
+                <img src="../assets/icons/person.png" alt="Contact Name" class="contact-icon">
+              </div>
+              <div class="subtask-container">
+                <input type="email" id="contactEmail" placeholder="Email" onclick="alertremove()">
+                <img src="../assets/icons/mail.png" alt="Contact Email" class="contact-icon">
+              </div>
+              <div class="subtask-container">
+                <input type="tel" id="contactPhone" placeholder="Phone" onclick="alertremove()">
+                <img src="../assets/icons/call.png" alt="Contact Phone" class="contact-icon">
+              </div>
+              <div id="warningContainer" class="warning-container"></div>
+            </div>
+          </div>
+          <div class="add-overlay-button">
+            <button class="cancel-button" onclick="closeAddContact()">Cancel</button>
+            <button class="create-button" onclick="createContact()">Create contact<img
+                src="../assets/icons/check-white.png" alt="Create" class="button-icon"></button>
+          </div>
+        </div>
+
+      </div>
+    </div>
+    </section>
+    <div id="editContactOverlay" class="overlay hidden">
+      <div class="overlay-content">
+        <div class="overlay-header">
+          <img src="../assets/icons/join-logo.png" alt="Join Logo">
+          <h2>Edit contact</h2>
+          <div class="border-blue"></div>
+        </div>
+        <div class="overlay-body">
+          <button class="close-btn" onclick="closeEditContact()">×</button>
+          <div class="edit-contact-avatar">
+            <div id="editAvatar" class="add-contact-icon">AB</div>
+          </div>
+          <div class="contact-form">
+            <div class="subtask-container">
+              <input type="text" id="editName" onclick="alertremoveEdit()" placeholder="Name">
+              <img src="../assets/icons/person.png" alt="Contact Name" class="contact-icon-edit">
+            </div>
+            <div class="subtask-container">
+              <input type="email" id="editMail" onclick="alertremoveEdit()" placeholder="Email">
+              <img src="../assets/icons/mail.png" alt="Contact Email" class="contact-icon-edit">
+            </div>
+            <div class="subtask-container">
+              <input type="tel" id="editPhone" class="font-size-" onclick="alertremoveEdit()" placeholder="Number">
+              <img src="../assets/icons/call.png" alt="Contact Phone" class="contact-icon-edit">
+            </div>
+            <div id="warningEditContainer" class="warning-container"></div>
+            <div class="edit-overlay-button">
+              <button class="delete-button" onclick="deleteCurrentContact()">Delete</button>
+              <button class="save-button" onclick="CheckEditedContact()">Save<img src="../assets/icons/check-white.png"
+                  alt=""></button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </main>
+  <div id="userFeedback" class="hidden flex-center Feedback-design">
+    <p>Contact successfully created !</p>
+  </div>
+</body>
+
+</html>

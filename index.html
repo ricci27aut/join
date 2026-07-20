@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="de">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Join | Login</title>
+    <link rel="shortcut icon" href="../assets/icons/favicon.png" type="image/x-icon">
+    <link rel="stylesheet" href="./styles/assets.css">
+    <link rel="stylesheet" href="./styles/style.css">
+    <link rel="stylesheet" href="./styles/login-signup.css">
+    <script src="./js/data.js"></script>
+    <script src="./js/login.js"></script>
+</head>
+
+<body onload="init()">
+    <div id="animation" class="animation">
+        <img class="animation-logo logo" src="./assets/icons/Join-main-logo.png" alt="">
+    </div>
+    <header>
+        <img class="logo" src="./assets/icons/Join-main-logo.png" alt="Join Logo">
+        <div class="header-signup">
+            <span class="signup-span">Not a Join user?</span>
+            <a href="./html/sign_up.html"><button class="sign-btn">Sign up</button></a>
+        </div>
+    </header>
+    <main> 
+        <div class="form-container">
+            <h1>Log in</h1>
+            <div class="seperator"></div>
+            <div class="log-in-container">
+                <div id="mail-container" class="input-container">
+                    <input onclick="removeRedBorder()" id="mail" placeholder="Email" type="email">
+                    <img class="icon-mail" src="./assets/icons/mail.png" alt="Mail icon">
+                </div>
+                <div id="password-container" class="input-container margin-top">
+                    <input onclick="removeRedBorder()" onkeyup="updatePasswordState()" id="password"
+                        placeholder="Password" type="password">
+                    <img onclick="togglePasswordVisibility()" id="password-icon" class="icon-pw"
+                        src="./assets/icons/pw-lock.png" alt="PW locked">
+                </div>
+                <div class="warning-container">
+                    <span class="warning d_none" id="warning">Check your email and password. Please try again</span>
+                </div>
+            </div>
+            <div class="button-container">
+                <button onclick="logIn()" class="login-btn">Log in</button>
+                <button onclick="guestLogIn()" class="guest-btn">Guest Log in</button>
+            </div>
+        </div>
+    </main>
+    <div class="header-signup-resp">
+        <span class="signup-span">Not a Join user?</span>
+        <a href="./html/sign_up.html"><button class="sign-btn">Sign up</button></a>
+    </div>
+    <footer>
+        <div class="footer-content">
+            <a href="./html/privacy_policy.html">Privacy Policy</a>
+            <a href="./html/legal_notice.html">Legal notice</a>
+        </div>
+    </footer>
+</body>
+
+</html>

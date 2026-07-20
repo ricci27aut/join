@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="de">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Join | Login</title>
+    <link rel="shortcut icon" href="../assets/icons/favicon.png" type="image/x-icon">
+    <link rel="stylesheet" href="../styles/style.css">
+    <link rel="stylesheet" href="../styles/login-signup.css">
+    <link rel="stylesheet" href="../styles/assets.css">
+    <script src="../js/data.js"></script>
+    <script src="../js/signup.js"></script>
+    <script defer src="../js/contacts.js"></script>
+    <script defer src="../js/contacts_v2.js"></script>
+</head>
+
+<body id="body">
+    <div id="succedSignup" class="d_none success-container">
+        <div id="sucess-message" class="success-massage">
+            You Signed Up successfully
+        </div>
+    </div>
+    <header>
+        <img class="logo" src="../assets/icons/Join-main-logo.png" alt="Join Logo">
+        <div>
+        </div>
+    </header>
+    <main>
+        <div class="form-container">
+            <div class="form-header">
+                <a href="../index.html"><img class="arrow-img" src="../assets/icons/left-arrow.png" alt="back"></a>
+                <h1>Sign Up</h1>
+                <div></div>
+            </div>
+
+            <div class="seperator"></div>
+            <div class="log-in-container">
+                <div class="input-container" id="name-input-container">
+                    <input id="name" placeholder="Name" type="text">
+                    <img class="icon-person" src="../assets/icons/person.png" alt="Person icon">
+                </div>
+                <div class="warning-container">
+                    <span class="warning-signup d_none" id="warning-name">Please enter your Name</span>
+                </div>
+                <div id="mail-input-container" class="input-container">
+                    <input id="mail" on placeholder="Email" type="email">
+                    <img class="icon-mail" src="../assets/icons/mail.png" alt="Mail icon">
+                </div>
+                <div class="warning-container">
+                    <span class="warning-signup d_none" id="warning-mail">Please check that your email is in the correct
+                        format.</span>
+                </div>
+                <div id="pasword-input-container" class="input-container">
+                    <input onclick="" onkeyup="updatePasswordState('password','password-icon')" id="password"
+                        placeholder="Password" type="password">
+                    <img onclick="togglePasswordVisibility('password','password-icon')" id="password-icon"
+                        class="icon-pw" src="../assets/icons/pw-lock.png" alt="PW locked">
+                </div>
+                <div id="pasword-confirm-input-container" class="input-container margin-top">
+                    <input onclick="" onkeyup="updatePasswordState('confirm-password','password-confirm-icon')"
+                        id="confirm-password" placeholder="Confirm Password" type="password">
+                    <img onclick="togglePasswordVisibility('confirm-password','password-confirm-icon')"
+                        id="password-confirm-icon" class="icon-pw" src="../assets/icons/pw-lock.png" alt="PW locked">
+                </div>
+            </div>
+            <div class="warning-container">
+                <span class="warning-signup d_none" id="warning-password">Your passwords don't match. Please try
+                    again</span>
+            </div>
+            <div class="checkbox-container">
+                <img id="checkbox" onclick="toggleCheckbox()" class="checkbox" src="../assets/icons/checkbox.png"
+                    alt="checkbox">
+                <div>
+                    <span class="checkbox-span">I accept the</span>
+                    <a class="privacy-link" href="./privacy_policy.html">Privacy Policy</a>
+                </div>
+            </div>
+            <div class="button-container">
+                <button id="signup-Btn" disabled onclick="signup()" class="login-btn">Sign up</button>
+            </div>
+        </div>
+        </div>
+    </main>
+    <footer>
+        <div class="footer-content">
+            <a href="./privacy_policy.html">Privacy Policy</a>
+            <a href="./legal_notice.html">Legal notice</a>
+        </div>
+    </footer>
+</body>
+
+</html>

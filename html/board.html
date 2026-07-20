@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>board</title>
+    <link rel="shortcut icon" href="../assets/icons/favicon.png" type="image/x-icon">
+    <link rel="stylesheet" href="../styles/style.css">
+    <link rel="stylesheet" href="../styles/menu-style.css">
+    <link rel="stylesheet" href="../styles/board.css">
+    <link rel="stylesheet" href="../styles/header-style.css">
+    <link rel="stylesheet" href="../styles/card.css">
+    <link rel="stylesheet" href="../styles/add-task.css">
+    <link rel="stylesheet" href="../styles/card-overlay.css">
+    <link rel="stylesheet" href="../styles/assets.css">
+    <script src="../js/data.js"></script>
+    <script src="../js/board.js"></script>
+    <script src="../js/board_v2.js"></script>
+    <script src="../js/board_v3.js"></script>
+    <script src="../assets/templates/card.js"></script>
+    <script src="../assets/templates/header.js"></script>
+    <script src="../assets/templates/menu.js"></script>
+    <script src="../assets/templates/task_overlay.js"></script>
+    <script src="../js/overlay.js"></script>
+    <script src="../js/overlay_v2.js"></script>
+    <script src="../js/editTask.js"></script>
+    <script src="../js/editTask_v2.js"></script>
+    <script src="../assets/templates/add_task_template.js"></script>
+</head>
+
+<body id="body" onresize="toogleVieW(),highlightLink(), toggleAddTaskLink(), toggleOverlayTask()" onload="initboard()">
+    <div id="succedSignup" class="d_none success-container ">
+        <div id="sucess-message" class="success-massage">
+            Task added to board <img src="../assets/icons/board.png" alt="">
+        </div>
+    </div>
+    <main>
+        <div onclick="closeAddTaskBoard()" id="addTaskBoardContainer" class="addTaskBoardContainer hidden">
+        </div>
+        <div id="addTaskBoard" class="addTaskBoard">
+        </div>
+        <div id="boardTaskOverlay" class="overlay hidden" onclick="closeOverlay()"></div>
+        <div class="currentContent" id="currentContent"></div>
+        <header>
+            <div class="headerTemplate" id="headerTemplate"></div>
+        </header>
+        <div id="menuTemplate"></div>
+        <div class="rightSection maxWidth">
+            <div class="boardTemplate" id="boardTemplate">
+                <div class="boardHeader">
+                    <div class="boardTitle">Board
+                        <a href="#" id="addTaskButtonBoard">
+                            <button onclick="openAddTaskBoard()" class="addTaskButtonResp">
+                                <img class="addPlus" src="../assets/icons/add.png" alt="add task">
+                            </button>
+                        </a>
+                    </div>
+                    <div class="findAddElement">
+                        <div class="taskSearch">
+                            <input class="taskSearchInput" type="search" value="" placeholder="Find Task">
+                            <img class="searchVector" src="../assets/icons/vector.png" alt="search">
+                            <img class="searchGlass" src="../assets/icons/search.png" alt="search">
+                        </div>
+                        <a href="#" id="addTaskButtonBoard">
+                            <button onclick="openAddTaskBoard()" class="addTaskButton">Add task
+                                <img class="addPlus" src="../assets/icons/add.png" alt="add task">
+                            </button>
+                        </a>
+                    </div>
+                </div>
+                <div class="boardTable">
+                    <div ondrop="moveTo('toDo')" ondragover="dragoverHandler(event)" class="boardList">
+                        <div class="boardListHeader">
+                            <h3>To do</h3>
+                            <a onclick="openAddTaskBoard()" class="plusButton">
+                                <div class="add-btn">+</div>
+                            </a>
+                        </div>
+                        <div id="emptyTask0" class="emptyTask">No Task To Do</div>
+                        <div class="taskFolder">
+                            <div id="taskToDo" class="taskList">
+                                <div id="dropzone#TaskToDo" class="dropzoneCard d_none"></div>
+                            </div>
+
+                        </div>
+                    </div>
+                    <div ondrop="moveTo('inProgress')" ondragover="dragoverHandler(event)" class="boardList">
+                        <div class="boardListHeader">
+                            <h3>In progress</h3>
+                            <a onclick="openAddTaskBoard()" class="plusButton">
+                                <div class="add-btn">+</div>
+                            </a>
+                        </div>
+                        <div id="emptyTask1" class="emptyTask">Nothing in progress</div>
+                        <div class="taskFolder">
+                            <div id="taskInProgress" class="taskList">
+                                <div id="dropzone#TaskInProgress" class="dropzoneCard d_none"></div>
+                            </div>
+                        </div>
+                    </div>
+                    <div ondrop="moveTo('await')" ondragover="dragoverHandler(event)" class="boardList">
+                        <div class="boardListHeader">
+                            <h3>Await feedback</h3>
+                            <a onclick="openAddTaskBoard()" class="plusButton">
+                                <div class="add-btn">+</div>
+                            </a>
+                        </div>
+                        <div id="emptyTask2" class="emptyTask">No feedback</div>
+                        <div class="taskFolder">
+                            <div id="taskAwaitFeedback" class="taskList">
+                                <div id="dropzone#TaskAwaitFeedback" class="dropzoneCard d_none"></div>
+                            </div>
+                        </div>
+                    </div>
+                    <div ondrop="moveTo('done')" ondragover="dragoverHandler(event)" class="boardList">
+                        <div class="boardListHeader">
+                            <h3>Done</h3>
+                        </div>
+                        <div id="emptyTask3" class="emptyTask">Nothing done</div>
+                        <div class="taskFolder">
+                            <div id="taskDone" class="taskList">
+                                <div id="dropzone#TaskDone" class="dropzoneCard d_none"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+</body>
+
+</html>

@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="de">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Join | summary</title>
+    <link rel="shortcut icon" href="../assets/icons/favicon.png" type="image/x-icon">
+    <link rel="stylesheet" href="../styles/header-style.css">
+    <link rel="stylesheet" href="../styles/menu-style.css">
+    <link rel="stylesheet" href="../styles/style.css">
+    <link rel="stylesheet" href="../styles/summary.css">
+    <link rel="stylesheet" href="../styles/assets.css">
+    <link rel="stylesheet" href="../styles/add-task.css">
+    <script src="../js/data.js"></script>
+    <script src="../js/summary.js"></script>
+    <script src="../assets/templates/menu.js"></script>
+    <script src="../assets/templates/header.js"></script>
+</head>
+
+<body onresize="toogleVieW(),highlightLink()" onload="initSummary()">
+    <header id="headerTemplate"></header>
+    <div id="menuTemplate">
+    </div>
+    <div class="content">
+        <div class="max-width-560px">
+            <div class="h1-container">
+                <h1 class="h1-summary">Join 360</h1>
+                <div class="suptitle-container">
+                    <div class="blue-border"></div>
+                    <p class="suptitle-summary">Key Metrics at a Glance</p>
+                </div>
+            </div>
+            <div class="row-1-container">
+                <a href="./board.html" class="tasks-link summary-content-div-row1 flex-center">
+                    <div class="icon-edit"></div>
+                    <div class="flex-column flex-center">
+                        <p id="to-do" class="task-informations"></p>
+                        <p class="p-rows">To-do</p>
+                    </div>
+                </a>
+                <a href="./board.html" class="tasks-link summary-content-div-row1 flex-center">
+                    <div class="icon-check"></div>
+                    <div class="flex-column flex-center">
+                        <p id="done" class="task-informations"></p>
+                        <p class="p-rows">Done</p>
+                    </div>
+                </a>
+            </div>
+            <div class="row-2-container">
+                <a href="./board.html" class=" tasks-link summary-content-div-row2 flex-center">
+                    <img class="urgent-img" src="../assets/icons/red-icon.png" alt="#">
+                    <div class="flex-column flex-center">
+                        <p id="urgent" class="task-informations"></p>
+                        <p class="p-rows">Urgent</p>
+                    </div>
+                    <div class="border-gray"></div>
+                    <div class="flex-column flex-center">
+                        <p id="urgant-date" class="date-informations"></p>
+                        <p class="dead-line">Upcoming Deadline</p>
+                    </div>
+                </a>
+            </div>
+            <div class="row-3-container">
+                <a href="./board.html" class="tasks-link summary-content-div-row3 flex-column flex-center">
+                    <p class="task-informations" id="tasks-in-board"></p>
+                    <p class="p-rows">Tasks in Board</p>
+                </a>
+                <a href="./board.html" class="tasks-link summary-content-div-row3 flex-column flex-center">
+                    <p class="task-informations" id="tasks-in-progress"></p>
+                    <p class="p-rows">Tasks in Progress</p>
+                </a>
+                <a href="./board.html" class="tasks-link summary-content-div-row3 flex-column flex-center">
+                    <p class="task-informations" id="awaiting-feedback"></p>
+                    <p class="p-rows">Awaiting Feedback</p>
+                </a>
+            </div>
+        </div>
+        <div class="margin-left-50px greeting-style" id="greeting"></div>
+    </div>
+</body>
+
+</html>

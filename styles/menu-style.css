@@ -1,0 +1,143 @@
+.menu-style {
+    background-color: rgb(42, 54, 71);
+    display: flex;
+    color: white;
+    font-size: 16px;
+    width: 232px;
+    height: 100vh;
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 1000;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.p-menu-style {
+    font-size: 16px;
+    color: #CDCDCD;
+    margin-bottom: 0;
+}
+
+.a-menu {
+    padding-top: 8px;
+    padding-bottom: 8px;
+}
+
+.logo-join {
+    width: 100px !important;
+    height: 120px !important;
+    margin-top: 64px;
+    margin-bottom: 130px;
+}
+
+.menu-style a {
+    color: #CDCDCD;
+    text-decoration: none;
+}
+
+.menu-style a:hover, .activeLink{
+    color: white;
+    background-color: #0919318f;
+}
+
+.menu-style img {
+    width: 30px;
+    height: 30px;
+}
+
+.menu-tasks {
+    display: flex;
+    flex-direction: column;
+
+}
+
+.menu-div {
+    display: flex;
+    justify-content: center;
+}
+
+.icon-menu-summary {
+    background-image: url(../assets/icons/summary.png);
+    width: 30px;
+    height: 30px;
+    background-repeat: no-repeat;
+}
+
+.position-bottom {
+    width: 100%;
+    padding-bottom: 50px;
+}
+
+.menu-button-possition {
+    display: flex;
+    align-items: center;
+    padding-left: 25%;
+}
+
+.gap-menu {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.mobile-menu-container{
+    display: flex;
+    justify-content: space-evenly;
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+    height: 80px;
+    background-color: #2A3647;
+    align-items: center;
+    z-index: 9999;
+}
+
+.mobile-menu-container a{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 80px;
+    width: 76px;
+}
+
+.border-radius{
+    border-radius: 18px;
+}
+
+.mobile-menu-container a:hover{
+    background-color: #0919318f;
+    border-radius: 18px;
+}
+
+.mobile-menu-container a img{
+    width: 24px;
+    height: 24px;
+}
+
+.mobile-menu-container a p{
+    color: #CDCDCD;
+    font-size: 14px;
+    font-weight: 400;
+}
+
+.mobile-menu-container a p:hover{
+    color: white;
+    font-size: 14px;
+    font-weight: 400;
+}
+
+.loggedOut-mobile-menu{
+    display: flex;
+    gap: 6px;
+}
+
+.loggedOut-mobile-menu a{
+    color: #CDCDCD;
+    width: 112px;
+}
+
+.active{
+    background-color: #091931;
+}
