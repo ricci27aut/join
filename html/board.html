@@ -69,7 +69,32 @@
                         </a>
                     </div>
                 </div>
+
+
+                <!-- neu -->
+
+
                 <div class="boardTable">
+                    <div ondrop="moveTo('triage')" ondragover="dragoverHandler(event)" class="boardList">
+                        <div class="boardListHeader">
+                            <h3>Triage</h3>
+                            <a onclick="openAddTaskBoard()" class="plusButton">
+                                <div class="add-btn">+</div>
+                            </a>
+                        </div>
+                        <div id="emptyTask20" class="emptyTask">No Task Triage</div><!-- //id ändern -->
+                        <div class="taskFolder">
+                            <div id="TriageTaskToDo" class="taskList">
+                                <div id="dropzone#TriageTaskToDo" class="dropzoneCard d_none"></div>
+                            </div>
+
+                        </div>
+                    </div>
+
+
+                <!-- neu -->
+
+
                     <div ondrop="moveTo('toDo')" ondragover="dragoverHandler(event)" class="boardList">
                         <div class="boardListHeader">
                             <h3>To do</h3>

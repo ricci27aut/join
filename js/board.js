@@ -48,6 +48,8 @@ function renderTasks(contacts) {
             renderTaskAwait(taskIndex, contacts);}
         else if (tasks[taskIndex].status == "done") {
             renderDone(taskIndex, contacts);}
+            else if (tasks[taskIndex].status == "triage") {
+            renderTaskTriage(taskIndex, contacts);}
     }
     renderDropZones();
 }
@@ -60,6 +62,7 @@ function clearBoardTable() {
     document.getElementById("taskInProgress").innerHTML = "";
     document.getElementById("taskAwaitFeedback").innerHTML = "";
     document.getElementById("taskDone").innerHTML = "";
+    document.getElementById("TriageTaskToDo").innerHTML = "";
     document.getElementById("emptyTask0").classList.remove("d_none");
     document.getElementById("emptyTask0").classList.add("emptyTask");
     document.getElementById("emptyTask1").classList.remove("d_none");
@@ -78,6 +81,7 @@ function renderDropZones() {
     document.getElementById("taskInProgress").innerHTML += renderDropZone("dropzone#TaskInProgress");
     document.getElementById("taskAwaitFeedback").innerHTML += renderDropZone("dropzone#TaskAwaitFeedback");
     document.getElementById("taskDone").innerHTML += renderDropZone("dropzone#TaskDone");
+    document.getElementById("TriageTaskToDo").innerHTML += renderDropZone("dropzone#TriageTaskToDo");
 }
 
 /**
@@ -91,6 +95,20 @@ function renderTaskToDo(taskIndex, contacts) {
     document.getElementById("emptyTask0").classList.remove("emptyTask");
     document.getElementById("emptyTask0").classList.add("d_none");
     const container = document.getElementById("taskToDo");
+    container.insertAdjacentHTML("beforeend", renderCard(taskIndex));
+    findBackgroundColor(taskIndex);
+    getSubtasks(taskIndex);
+    getAssignedTo(taskIndex, contacts);
+    getPriority(taskIndex);
+    const cardElement = document.getElementById(`card${taskIndex}`);
+    enableTouchDrag(cardElement, taskIndex);
+}
+
+function renderTaskTriage(taskIndex, contacts) {
+    const empty = document.getElementById("emptyTask20");
+    empty.classList.remove("emptyTask");
+    empty.classList.add("d_none");
+    const container = document.getElementById("TriageTaskToDo");
     container.insertAdjacentHTML("beforeend", renderCard(taskIndex));
     findBackgroundColor(taskIndex);
     getSubtasks(taskIndex);

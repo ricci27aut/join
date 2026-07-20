@@ -15,7 +15,8 @@ function startDragging(id) {
         card.addEventListener('dragstart', function (e) {
             e.preventDefault();
         });
-        card.dataset.dragListenerAdded = "true";}
+        card.dataset.dragListenerAdded = "true";
+    }
     card.style.transformOrigin = 'bottom left';
     card.style.transform = 'rotate(3deg)';
     showVisibleFeedbackOnDrag(currentId);
@@ -78,6 +79,9 @@ function showVisibleFeedbackOnDrag(currentId) {
     if (tasks[currentId].status == "done") {
         toggleVisibleFeedbackDone();
     }
+    if (tasks[currentId].status == "triage") {
+        toggleVisibleFeedbackTriage();
+    }
 }
 
 /**
@@ -116,6 +120,7 @@ function toggleVisibleFeedbackToDo() {
     document.getElementById("dropzone#TaskInProgress").classList.remove("d_none");
     document.getElementById("dropzone#TaskAwaitFeedback").classList.remove("d_none");
     document.getElementById("dropzone#TaskDone").classList.remove("d_none");
+    document.getElementById("dropzone#TriageTaskToDo").classList.remove("d_none");
 }
 
 /**
@@ -126,6 +131,7 @@ function toggleVisibleFeedbackInProgress() {
     document.getElementById("dropzone#TaskToDo").classList.remove("d_none");
     document.getElementById("dropzone#TaskAwaitFeedback").classList.remove("d_none");
     document.getElementById("dropzone#TaskDone").classList.remove("d_none");
+    document.getElementById("dropzone#TriageTaskToDo").classList.remove("d_none");
 }
 
 /**
@@ -136,6 +142,7 @@ function toggleVisibleFeedbackAwait() {
     document.getElementById("dropzone#TaskToDo").classList.remove("d_none");
     document.getElementById("dropzone#TaskDone").classList.remove("d_none");
     document.getElementById("dropzone#TaskInProgress").classList.remove("d_none")
+    document.getElementById("dropzone#TriageTaskToDo").classList.remove("d_none");
 }
 
 /**
@@ -146,6 +153,18 @@ function toggleVisibleFeedbackDone() {
     document.getElementById("dropzone#TaskToDo").classList.remove("d_none");
     document.getElementById("dropzone#TaskInProgress").classList.remove("d_none");
     document.getElementById("dropzone#TaskAwaitFeedback").classList.remove("d_none");
+    document.getElementById("dropzone#TriageTaskToDo").classList.remove("d_none");
+}
+
+/**
+ * This function toggles the classes of the visible feedback of the Triage tasklist
+ * to see the feedback while dragging
+ */
+function toggleVisibleFeedbackTriage() {
+    document.getElementById("dropzone#TaskToDo").classList.remove("d_none");
+    document.getElementById("dropzone#TaskInProgress").classList.remove("d_none");
+    document.getElementById("dropzone#TaskAwaitFeedback").classList.remove("d_none");
+    document.getElementById("dropzone#TaskDone").classList.remove("d_none");
 }
 
 /**
@@ -253,7 +272,7 @@ function finishDrag(cardElement, taskIndex, ev) {
     if (status) {
         currentId = taskIndex;
         moveTo(status);
-    } if (cardElement.parentElement === document.body) {cardElement.remove();}
+    } if (cardElement.parentElement === document.body) { cardElement.remove(); }
 }
 
 /**
@@ -290,10 +309,13 @@ function setupDragHandlers(cardElement, touch, rect, offsetX, offsetY, taskIndex
     const onMove = (ev) => {
         dragStarted = onTouchMove(ev, {
             dragStarted, canDrag, touch, cardElement, rect, taskIndex, offsetX, offsetY, dragTimer
-        });};
+        });
+    };
     const onEnd = (ev) => {
         onTouchEnd(ev, {
-            dragStarted, cardElement, onMove, onEnd, taskIndex, dragTimer});};
+            dragStarted, cardElement, onMove, onEnd, taskIndex, dragTimer
+        });
+    };
     cardElement.addEventListener('touchmove', onMove, { passive: false });
     cardElement.addEventListener('touchend', onEnd);
 }
