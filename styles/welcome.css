@@ -1,0 +1,131 @@
+main {
+     display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+    background-color: #2A3647;
+    min-height: 100vh;
+    min-width: 100%;
+    box-sizing: border-box;
+    font-family: 'Open Sans', sans-serif;
+    color: #001E37;
+}
+
+.welcome-container {
+    background-color: white;
+    border-radius: 16px;
+    padding: 60px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    max-width: 789px;
+    max-height: 403px;
+}
+
+h1 {
+    font-size: 32px;
+    font-weight: 700;
+    color: #2A3647;
+}
+
+.welcome-text {
+    font-size: clamp(16px, 2vw, 23px);
+    font-weight: 400;
+    text-align: start;
+}
+
+.welcome-options {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+    margin-top: 40px;
+    font-size: 23px;
+    font-weight: 400;
+}
+
+.create-request-btn {
+    background-color: #177DA8;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 8px;
+    cursor: pointer;
+}
+
+.member-login-btn {
+    padding: 10px 20px;
+    border-radius: 8px;
+    cursor: pointer;
+    color: #2A3647;
+    background-color: transparent;
+    border: 2px solid #2A3647;
+}
+
+
+.btn-font {
+    margin-top: 15px;
+    font-size: clamp(16px, 2vw, 23px);
+    font-weight: 400;
+}
+
+.border-blue {
+    width: 120px;
+    height: 4px;
+    border-radius: 8px;
+    background-color: #177DA8;
+    margin: 20px 0;
+}
+
+.btn-p {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+}
+
+.background-text {
+    position: relative;
+    top: -100px;
+    font-size: 16px;
+    color: white;
+    display: none;
+}
+
+.background-text a {
+    color: white;
+    text-decoration: none;
+}
+
+footer{
+    display: none;
+    position: static;
+    margin-top: auto;
+    padding: 20px 0 10px;
+}
+
+@media (max-width: 610px) {
+    footer{
+        display: block;
+    }
+    .welcome-container {
+        max-width: 100%;
+        max-height: 100%;
+        padding: 40px 20px;
+        margin-top: 100px;
+    }
+
+    .welcome-options {
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+        gap: 50px;
+    }
+
+    .welcome-text {
+        text-align: center;
+    }
+
+    .background-text {
+        display: block;
+    }
+}

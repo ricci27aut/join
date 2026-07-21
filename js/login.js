@@ -26,7 +26,7 @@ function logIn() {
     let passwordRef = document.getElementById('password');
     currentUser = users.find((user) => user.email == emailRef.value && user.password == passwordRef.value);
     if (currentUser) {
-        window.location.href = "./html/summary.html";
+        window.location.href = "../html/summary.html";
         safeToLocalStorage();
     } else {
         wrongMailandPassword(emailRef, passwordRef);

@@ -85,7 +85,7 @@ function pushTask(title, description, dueDate, category, priority) {
         description: description,
         name: title,
         priority: priority,
-        status: "toDo",
+        status: "triage",
         subtasks: getSubTasks()
     });
     postData(newTask);
