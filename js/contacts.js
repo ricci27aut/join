@@ -23,10 +23,19 @@ let currentEditKey = null;
  * Initializes the contacts module: fetches contacts and highlights the menu link.
  */
 async function initContacts() {
-  await fetchContacts();
-  await fetchTasks();
-  initTask();
-  highlightLink();
+    const contactsData = await fetchContacts();
+
+    await fetchTasks();
+    initTask();
+    highlightLink();
+
+    const params = new URLSearchParams(window.location.search);
+
+    if (params.get("action") === "create") {
+        await handleRequestedContactCreation();
+    } else {
+        openRequestedContact(contactsData);
+    }
 }
 
 /**
@@ -39,7 +48,8 @@ async function fetchContacts() {
       document.getElementById("contactList").innerHTML = noKontaktTamplate();
       return;
     }
-    renderContacts(data);
+    renderContacts(data)
+      return data;
   } catch (error) { }
 }
 

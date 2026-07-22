@@ -39,6 +39,25 @@
     will-change: transform;
 }
 
+.creator{
+    display:flex;
+    gap:8px;
+    flex-wrap: wrap;
+}
+
+.creator-text{
+    color:#2A3647;
+  text-align: center;
+}
+
+.icon-cared{
+    cursor: pointer;
+}
+
+.icon-cared:hover {
+    background-color: #29aae217;
+}
+
 .cardOverlay.show {
     transform: translateX(0);
 }
@@ -427,5 +446,32 @@
 
     .taskOverlayName {
         font-size: 36px;
+    }
+}
+
+@media (max-width: 400px){
+   .creator {
+        display: grid;
+        grid-template-columns: auto auto auto;
+        grid-template-areas:
+            "extern extern extern"
+            "label name mail";
+        row-gap: 6px;
+    }
+
+    .creator > span:first-child {
+        grid-area: label;
+    }
+
+    .creator-extern {
+        grid-area: extern;
+    }
+
+    .creator > span:last-of-type {
+        grid-area: name;
+    }
+
+    .creator-mail {
+        grid-area: mail;
     }
 }

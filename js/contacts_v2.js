@@ -122,7 +122,8 @@ async function saveContact(key, contact) {
       body: JSON.stringify(contact)
     });
     if (!response.ok) {
-      return;}
+      return;
+    }
     finishContactCreation();
   } catch (error) { }
 }
@@ -172,7 +173,9 @@ if (contactsSlider && sliderTrigger) {
       !sliderTrigger.contains(event.target);
     if (isClickOutside && !contactsSlider.classList.contains("dnone")) {
       contactsSlider.classList.add("dnone");
-    }});}
+    }
+  });
+}
 
 /**
  * Deletes the currently selected contact.
@@ -193,4 +196,76 @@ function contactAddedSuccessfully() {
   setTimeout(() => {
     feedbackEl.classList.add("hidden");
   }, 4000);
+}
+
+/**
+ * Opens the contact requested through the contact URL parameter.
+ * Finds the matching contact by name, highlights it in the list, and displays its details.
+ *
+ * @param {Object.<string, Object>} contactsData - Contacts indexed by their database keys.
+ * @returns {void}
+ */
+function openRequestedContact(contactsData) {
+  const params = new URLSearchParams(window.location.search);
+  const requestedName = params.get("contact");
+
+  if (!requestedName || !contactsData) {
+    return;
+  }
+
+  const contactEntry = Object.entries(contactsData).find(
+    ([key, contact]) => contact.name === requestedName
+  );
+
+  if (!contactEntry) {
+    return;
+  }
+
+  const [key, contact] = contactEntry;
+  const color = contact.color || getRandomColor();
+
+  showCurrentContact(key);
+  showContact(contact, color, key);
+}
+
+/**
+ * Creates a contact from the data provided through URL parameters and opens its details.
+ * Removes the URL parameters after creation to prevent the contact from being created again on reload.
+ *
+ * @async
+ * @returns {Promise<void>}
+ */
+async function handleRequestedContactCreation() {
+  const params = new URLSearchParams(window.location.search);
+
+  if (params.get("action") !== "create") {
+    return;
+  }
+
+  const name = params.get("name");
+  const mail = params.get("mail");
+  const phone = params.get("phone") || "";
+
+  await createNewContact(name, mail, phone);
+
+  resetURL();
+
+  const contactsData = await fetchContacts();
+  const key = generateKeyFromName(name);
+  const contact = contactsData?.[key];
+  showCurrentContact(key);
+  showContact(contact, contact.color, key);
+}
+
+/**
+ * Removes all query parameters from the current URL without reloading the page.
+ *
+ * @returns {void}
+ */
+function resetURL() {
+  window.history.replaceState(
+    {},
+    "",
+    window.location.pathname
+);
 }

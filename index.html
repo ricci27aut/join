@@ -17,25 +17,40 @@
 <body onload="init()">
     <div id="animation" class="animation">
         <img class="animation-logo logo" src="./assets/icons/Join-main-logo.png" alt="">
-    </div>    
+    </div>
     <main>
+        <div class="logo-container"><img class="logo" src="./assets/icons/join-logo.png" alt="Logo"></div>
         <div class="welcome-container">
             <span class="background-text">Not a Join user? <a href="./html/sign_up.html">Sign up</a></span>
             <h1>Welcome</h1>
             <div class="border-blue"></div>
-            <span class="welcome-text">Pick the option that suits your role: create a request as a stakeholder or log in if you’re part of
+            <span class="welcome-text">Pick the option that suits your role: create a request as a stakeholder or log in
+                if you’re part of
                 the team.</span>
             <div class="welcome-options">
-                <a href="./html/stakeholder.html"><p class="btn-p"><img src="./assets/icons/welcome/Create-request.png">Are you a stakeholder?</p><button class="create-request-btn btn-font" onclick="toStakeholder()">Create Request</button></a>
-                <a href="./html/log_in.html"><p class="btn-p"><img src="./assets/icons/welcome/Member-log-in.png">Are you part of the team?</p><button class="member-login-btn btn-font">Member Log In</button></a>
+                <div class="btn-p">
+                    <p class="btn-suptitle">
+                        <img class="btn-suptitle-img" src="./assets/icons/welcome/Create-request.png">Are you a
+                        stakeholder?
+                    </p><a href="./html/stakeholder.html"><button class="create-request-btn btn-font"
+                            onclick="toStakeholder()">Create Request</button></a>
+                </div>
+
+                <div class="btn-p">
+                    <p class="btn-suptitle">
+                        <img class="btn-suptitle-img" src="./assets/icons/welcome/Member-log-in.png">Are you part of the
+                        team?
+                    </p><a href="./html/log_in.html"><button class="member-login-btn btn-font">Member Log
+                            In</button></a>
+                </div>
             </div>
         </div>
         <footer>
-        <div class="footer-content">
-            <a href="../html/privacy_policy.html">Privacy Policy</a>
-            <a href="../html/legal_notice.html">Legal notice</a>
-        </div>
-    </footer>
+            <div class="footer-content">
+                <a href="../html/privacy_policy.html">Privacy Policy</a>
+                <a href="../html/legal_notice.html">Legal notice</a>
+            </div>
+        </footer>
     </main>
 </body>
 

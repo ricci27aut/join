@@ -45,6 +45,7 @@ async function fetchTasks() {
             firebaseKey: key
         });
     }
+    console.log("Fetched tasks:", tasks);
 };
 
 /**

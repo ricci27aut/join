@@ -71,6 +71,8 @@ function clearBoardTable() {
     document.getElementById("emptyTask2").classList.add("emptyTask");
     document.getElementById("emptyTask3").classList.remove("d_none");
     document.getElementById("emptyTask3").classList.add("emptyTask");
+    document.getElementById("emptyTask20").classList.remove("d_none");
+    document.getElementById("emptyTask20").classList.add("emptyTask");
 }
 
 /**
@@ -104,6 +106,15 @@ function renderTaskToDo(taskIndex, contacts) {
     enableTouchDrag(cardElement, taskIndex);
 }
 
+/**
+ * Renders a task card in the "Triage" column of the Kanban board.
+ * The function inserts the task into the DOM, applies its styling,
+ * loads subtasks, assigned contacts, priority, and enables touch drag support.
+ *
+ * @param {number} taskIndex - Index of the task in the task array.
+ * @param {Array<Object>} contacts - List of available contacts used to display assigned users.
+ * @returns {void}
+ */
 function renderTaskTriage(taskIndex, contacts) {
     const empty = document.getElementById("emptyTask20");
     empty.classList.remove("emptyTask");

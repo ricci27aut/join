@@ -2,9 +2,24 @@ function renderTaskOverlay(taskIndex) {
     return `
         <div id="cardOverlay" class="cardOverlay">
             <div id="cardOverlay" class="cardOverlayInner">
-                <div class="taskCategoryDiv"><div id="taskCategory${"#" + taskIndex}" class="taskOverlayCategory">${tasks[taskIndex].category}</div><div class="closeImg" onclick="closeOverlay()"></div></div>
+                <div class="taskCategoryDiv"><div id="taskCategory${"#" + taskIndex}" class="taskOverlayCategory">${tasks[taskIndex].category}</div><div id="ai-img">
+        ${renderAiImage(taskIndex)}
+    </div><div class="closeImg" onclick="closeOverlay()"></div></div>
                 <div id="taskName" class="taskOverlayName">${tasks[taskIndex].name}</div>
                 <div id="taskDescription" class="taskOverlayDescription">${tasks[taskIndex].description}</div>
+               <div class="creator">
+    <span class="creator-text">Creator:</span>
+
+    <div class="creator-extern">
+        ${renderExternImage(taskIndex)}
+    </div>
+
+    <span class="creator-text">${tasks[taskIndex].username}</span>
+
+    <div class="creator-mail" onclick="handleCreatorClick(${taskIndex})">
+        ${renderMailImage(taskIndex)}
+    </div>
+</div>
                 <div class="dueDateOverlay">   
                     <p class="fontSize20">Due date:</p>
                     <div class="dueDateOverlayDiv">${tasks[taskIndex].date.slice(0, 10).split('-').reverse().join('/')}</div>
@@ -141,7 +156,7 @@ function editTaskOverlayTemplate(currentTask) {
             </div>`
 };
 
-function subtaskEditTemplate(index,arr) {
+function subtaskEditTemplate(index, arr) {
     return `<div id="subtask-${index}">
                 <div ondblclick="editSubtask(${index})" onmouseover="openSubtaskEdit(${index})" onmouseout="closeSubtaskEdit(${index})"  class="subtask-list-container">
                     <li>${arr[index].title}</li>
@@ -270,10 +285,86 @@ function addTaskBoardTemplate() {
         </div>`
 }
 
+function aiImageTemplate() {
+    return `<img src="../assets/icons/welcome/ai-img.png" alt="AI generated">`;
+}
+
+function externImageTemplate() {
+    return `<img src="../assets/icons/welcome/extern.png" alt="extern">`
+}
+
+function memberImageTemplate() {
+    return `<img src="../assets/icons/welcome/member.png" alt="member">`
+}
+
+function sendMailImageTemplate() {
+    return `<img class="icon-cared" src="../assets/icons/welcome/Send email.png" alt="Send email">`
+}
+
+function profileImageTemplate() {
+    return `<img class="icon-cared" src="../assets/icons/welcome/See profile.png" alt="profile">`
+}
+
+/**
+ * Renders an indicator for assigned members that are not displayed individually.
+ *
+ * @returns {string} HTML markup containing the number of additional members.
+ */
 function moreMemberTemplate() {
     return `<div class="moreMembers">+${assignedMembers.length - 5}</div>`
 }
 
+/**
+ * Renders an indicator for additional assigned members on a task card.
+ *
+ * @returns {string} HTML markup containing the number of additional members.
+ */
 function moreMemberCardTemplate() {
     return `<div class="moreCardMembers">+${assignedTo.length - 5}</div>`
 }
+
+/**
+ * Handles a click on the creator action icon.
+ * Creates a contact from an AI-generated task or opens the existing creator contact.
+ *
+ * @param {number} taskIndex - Index of the selected task in the tasks array.
+ * @returns {void}
+ */
+function handleCreatorClick(taskIndex) {
+    const task = tasks[taskIndex];
+
+    if (task.ai_generated === true) {
+        openCreateContactPage(task);
+    } else {
+        openContactDetails(task.username);
+    }
+}
+
+/**
+ * Opens the contacts page with the data required to create a new contact.
+ *
+ * @param {Object} task - Task containing the creator's name and email address.
+ * @param {string} task.username - Name of the task creator.
+ * @param {string} task.E-mail - Email address of the task creator.
+ * @returns {void}
+ */
+function openCreateContactPage(task) {
+    const name = encodeURIComponent(task.username);
+    const mail = encodeURIComponent(task["E-mail"]);
+
+    window.location.href =
+        `./contacts.html?action=create&name=${name}&mail=${mail}`;
+}
+
+/**
+ * Opens the contacts page and requests the details of a specific contact.
+ *
+ * @param {string} contactName - Name of the contact to display.
+ * @returns {void}
+ */
+function openContactDetails(contactName) {
+    window.location.href =
+        `./contacts.html?contact=${encodeURIComponent(contactName)}`;
+}
+
+

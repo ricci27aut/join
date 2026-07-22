@@ -174,7 +174,8 @@ async function pushTaskBoard(title, description, dueDate, category, priority) {
         name: title,
         priority: priority,
         status: "toDo",
-        subtasks: subtasksArray
+        subtasks: subtasksArray,
+        username: JSON.parse(localStorage.getItem("user"))
     });
     await postData(newTask);
 };

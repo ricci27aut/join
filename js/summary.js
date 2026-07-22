@@ -16,6 +16,7 @@ async function initSummary() {
     summaryWelcome();
     renderSummary();
     highlightLink();
+    renderEmailRequests();
 };
 
 /**
@@ -98,19 +99,22 @@ function renderSummary() {
  * - The earliest date
  */
 function renderSecondRow() {
-    let allUrgents = document.getElementById('urgent');
-    let currentUrgent = tasks.filter((i) => i.priority === "urgent");
-    allUrgents.innerHTML = `${currentUrgent.length}`;
-    let urgentDates = [];
-    for (let index = 0; index < currentUrgent.length; index++) {
-        urgentDates.push(new Date(currentUrgent[index].date))};
-    const minDate = new Date(Math.min(...urgentDates));
-    let urgentDate = document.getElementById('urgant-date');
-    urgentDate.innerHTML = minDate.toLocaleDateString('en-US', {
-        year: 'numeric',
-        month: 'long',
-        day: 'numeric' });
-};
+    const urgentTasks = tasks.filter(task => task.priority === 'urgent');
+
+    document.getElementById('urgent').textContent = urgentTasks.length;
+
+    const dates = urgentTasks
+        .map(task => new Date(task.date))
+        .filter(date => !isNaN(date));
+
+    document.getElementById('urgant-date').textContent = dates.length
+        ? new Date(Math.min(...dates)).toLocaleDateString('en-US', {
+            year: 'numeric',
+            month: 'long',
+            day: 'numeric'
+        })
+        : 'No deadline';
+}
 
 /**
  * Renders the number of "to-does" and "done" tasks and displays them
@@ -127,6 +131,21 @@ function renderFirstRow() {
     let currentDones = tasks.filter((i) => i.status === "done");
     allDones.innerHTML = `${currentDones.length}`;
 };
+
+/**
+ * Renders the number of "Emails" requests and displays them
+ * 
+ * This function filters all tasks with the property "ai_generated" set to true,
+ * and updates the DOM with:
+ * - The total number of email requests
+ */
+function renderEmailRequests() {
+    let emailContent = document.getElementById('email-requests');
+    let curentEmailRequests = tasks.filter((i) => i.ai_generated
+        == true);
+    emailContent.innerHTML = `${curentEmailRequests.length}`;
+    console.log(emailContent);
+}
 
 /**
  * Renders the number of "all Tasks", "tasks in Progress" and "awaiting feedback" tasks and displays them

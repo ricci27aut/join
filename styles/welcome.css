@@ -10,6 +10,12 @@ main {
     color: #001E37;
 }
 
+.logo-container{
+    width: 100%;
+    display: none;
+   padding-top: 20px;
+}
+
 .welcome-container {
     background-color: white;
     border-radius: 16px;
@@ -52,6 +58,10 @@ h1 {
     cursor: pointer;
 }
 
+.create-request-btn:hover {
+    background-color: #2A3647;
+}
+
 .member-login-btn {
     padding: 10px 20px;
     border-radius: 8px;
@@ -61,8 +71,13 @@ h1 {
     border: 2px solid #2A3647;
 }
 
+.member-login-btn:hover {
+   color: #177DA8;
+   border-color: #177DA8;
+}
 
-.btn-font {
+
+.btn-font, .btn-suptitle {
     margin-top: 15px;
     font-size: clamp(16px, 2vw, 23px);
     font-weight: 400;
@@ -76,11 +91,16 @@ h1 {
     margin: 20px 0;
 }
 
+.btn-suptitle-img{
+    margin-right: 10px;
+}
+
 .btn-p {
     display: flex;
     align-items: center;
     justify-content: center;
     gap: 10px;
+    flex-direction: column;
 }
 
 .background-text {
@@ -127,5 +147,9 @@ footer{
 
     .background-text {
         display: block;
+    }
+
+    .logo-container{
+        display: flex;
     }
 }

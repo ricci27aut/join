@@ -289,13 +289,10 @@ main {
     font-size: 16px;
 }
 
-@media (max-width: 1350px) {
-    .rightSection {
+@media (max-width: 1630px) {
+       .rightSection {
         padding-left: 0;
     }
-}
-
-@media (max-width: 1150px) {
 
     .addTaskBoard {
         width: 500px;

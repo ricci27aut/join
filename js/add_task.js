@@ -86,7 +86,8 @@ function pushTask(title, description, dueDate, category, priority) {
         name: title,
         priority: priority,
         status: "triage",
-        subtasks: getSubTasks()
+        subtasks: getSubTasks(),
+        username: JSON.parse(localStorage.getItem("user"))
     });
     postData(newTask);
 };

@@ -101,17 +101,18 @@ let userName = localStorage.getItem("user");
  */
 function checkLogged() {
     if (userName == undefined) {
-        if (window.innerWidth <= 1350) {
+        if (window.location.pathname.includes('board.html') && window.innerWidth <= 1630) {
             return mobileMenuUnLogged();
-        } else {
-            return menuUnlogged();
-        };
+        } else if (window.innerWidth <= 1350) {
+            return mobileMenuUnLogged();
+        } else {return menuUnlogged();};
     } else {
-        if (window.innerWidth <= 1350) {
+        if (window.location.pathname.includes('board.html') && window.innerWidth <= 1630) {
             return mobileMenuLogged();
-        } else {
-            return menuLogged();
-        };
+        }
+        else if (window.innerWidth <= 1350) {
+            return mobileMenuLogged();
+        } else {return menuLogged();};
     };
 };
 
@@ -119,13 +120,17 @@ function checkLogged() {
  * Renders the appropriate navigation menu based on screen width and login status.
  */
 function toogleVieW() {
-    if (window.innerWidth <= 1350 && userName == undefined) {
+    if (window.location.pathname.includes('board.html') && window.innerWidth <= 1630 && userName == undefined) {
+        document.getElementById("menuTemplate").innerHTML = mobileMenuUnLogged();
+    }else if (window.innerWidth <= 1350 && userName == undefined) {
         document.getElementById("menuTemplate").innerHTML = mobileMenuUnLogged();
     } else if (window.innerWidth >= 1350 && userName == undefined) {
         document.getElementById("menuTemplate").innerHTML = menuUnlogged();
+    } else if (window.location.pathname.includes('board.html') && window.innerWidth <= 1630 && userName) {
+        document.getElementById("menuTemplate").innerHTML = mobileMenuLogged();
     } else if (window.innerWidth >= 1350 && userName) {
         document.getElementById("menuTemplate").innerHTML = menuLogged();
-    } else {
+    }else {
         document.getElementById("menuTemplate").innerHTML = mobileMenuLogged();
     };
 };

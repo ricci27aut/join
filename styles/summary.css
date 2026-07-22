@@ -187,8 +187,8 @@ body {
     width: 100%;
 }
 
-.padding-5px {
-    padding-left: 10px;
+.date-style {
+    padding-left: 5px;
 }
 
 .p-rows-row-2 {
@@ -210,15 +210,16 @@ body {
     font-weight: 600;
 }
 
+.color-gradient {
+    background-image: linear-gradient(180deg, #8933FC, #29ABE2);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
 .date-informations {
     font-size: 20px;
     font-weight: 700;
-}
-
-.dead-line {
-    padding-top: 8px;
-    font-size: 16px;
-    font-weight: 400;
+    text-align: center;
 }
 
 .suptitle-container {
@@ -229,23 +230,42 @@ body {
 .row-1-container {
     display: flex;
     align-items: center;
-    gap: 36px;
+    gap: clamp(15px, 3vw, 36px);
 }
 
 .row-2-container {
     display: flex;
-    gap: 28px;
+    gap: clamp(15px, 3vw, 28px);
 }
 
 .row-3-container {
     display: flex;
-    gap: 28px;
+    gap: clamp(15px, 3vw, 28px);
 }
 
 .stopScrolling {
     height: 100vh;
     overflow-y: hidden;
 }
+
+.dead-line {
+    font-size: clamp(14px, 3vw, 20px);
+    text-align: center;
+    padding-top: 8px;
+    font-weight: 400;
+}
+
+.urgent-img {
+    margin-left: 5px;
+    width: clamp(40px, 5vw, 60px);
+    height: clamp(40px, 5vw, 60px);
+}
+
+.date-informations {
+    font-size: clamp(14px, 3vw, 20px);
+}
+
+
 
 @media (max-width: 1350px) {
     .content {
@@ -359,7 +379,8 @@ body {
 
     .summary-content-div-row2 {
         width: 250px;
-        height: 110px;
+        height: 116px;
+
     }
 
     .summary-content-email-requests {
@@ -377,10 +398,6 @@ body {
         padding-left: 6px;
         padding-right: 6px;
         font-size: 16px;
-    }
-
-    .row-1-container {
-        gap: 24px;
     }
 
     .icon-edit,
@@ -407,14 +424,6 @@ body {
         font-size: 47px;
     }
 
-    .date-informations {
-        font-size: 16px;
-    }
-
-    .dead-line {
-        font-size: 16px;
-    }
-
     .greeting-style {
         font-size: 36px;
     }
@@ -422,10 +431,24 @@ body {
     .user-name {
         font-size: 47px;
     }
+
+    .p-rows-row-2 {
+        padding-left: 0px !important;
+        padding-right: 5px !important;
+    }
 }
 
 @media (max-width: 370px) {
     .summary-content-div-row2 {
-        gap: 12px;
+        gap: 5px;
+    }
+
+    .p-rows-row-2 {
+        padding-left: 0px !important;
+        padding-right: 0px !important;
+    }
+
+    .date-style {
+        padding-left: 0px;
     }
 }

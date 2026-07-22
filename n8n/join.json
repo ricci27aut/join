@@ -1,0 +1,849 @@
+{
+  "name": "join",
+  "nodes": [
+    {
+      "parameters": {
+        "modelName": "models/gemini-3.1-flash-lite",
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.lmChatGoogleGemini",
+      "typeVersion": 1.1,
+      "position": [
+        832,
+        128
+      ],
+      "id": "ff5fe1af-7647-4493-ac4c-3303b19ad0f6",
+      "name": "Google Gemini Chat Model",
+      "credentials": {
+        "googlePalmApi": {
+          "id": "eF1GIlib3o1YKql6",
+          "name": "Google Gemini(PaLM) Api account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "promptType": "define",
+        "text": "=You are an AI assistant that converts emails into project management tasks.\n\nYour job is to analyze the sender, subject and email body and generate exactly one task.\n\nUse only the information contained in the email.\nNever invent facts.\nIf information is missing, leave the corresponding field empty.\n\nSender:\n{{ $('Gmail Trigger').item.json.From }}\n\nSubject:\n{{ $('Gmail Trigger').item.json.Subject }}\n\nEmail:\n {{ $('Gmail Trigger').item.json.text }}\n\nDetermine the following fields:\n\n* name\n* description\n* category\n* priority\n* date\n\nRules:\n\n### 1. name\n\nRules:\n\n- Maximum 4 words.\n- Maximum 60 characters.\n- Use only the essential task.\n- Remove unnecessary words.\n- Never use punctuation at the end.\n- Never include dates.\n- Never include the sender name.\n- Examples:\n  - Fix Login Error\n  - Update Privacy Policy\n  - Add Search Filter\n  - Improve Mobile Layout\n\n### 2. description\n\n* Write a clear task description.\n* Keep the original language of the email.\n* Include only relevant information.\n* Do not mention AI.\n* Do not invent details.\n\n### 3. category\n\nThe category MUST be EXACTLY one of these values:\n\n- User Story\n- Technical Task\n\nNo other value is allowed.\n\nBefore returning the JSON, validate the category.\n\nIf the category is not exactly one of the three allowed values, replace it with the closest valid value.\n\nClassification:\n\nBug\n- Error\n- Crash\n- Failure\n- Exception\n- Login problem\n- Broken feature\n- Unexpected behaviour\n- Something does not work\n\nTechnical Task\n- API\n- Backend\n- Database\n- Infrastructure\n- Deployment\n- Refactoring\n- Security\n- Performance\n- Internal maintenance\n- Configuration\n- DevOps\n\nUser Story\n- Feature request\n- New feature\n- UI improvement\n- UX improvement\n- Enhancement\n- Customer request\n- Workflow improvement\n- General functionality\n\nFinal validation:\n\nThe value of \"category\" MUST be exactly one of:\n\n\"User Story\"\n\"Technical Task\"\n\"Bug\"\n\nIf it is anything else, DO NOT return it.\nReplace it with the closest valid category before generating the JSON.\n\n### 4. priority\n\nReturn exactly one of:\n\n* urgent\n* medium\n* low\n\nPriority rules:\n\nurgent\n\n* Production issue\n* Security issue\n* System unavailable\n* Critical bug\n* Explicit deadline within 24 hours\n\nmedium\n\n* Standard feature\n* Standard bug\n* Regular work\n\nlow\n\n* Nice to have\n* Cosmetic improvement\n* Minor enhancement\n\n### 5. date\n\nLook carefully for any deadline mentioned anywhere in the subject or email.\n\nExamples:\n\n* tomorrow\n* next Friday\n* Monday\n* 14 August\n* 14.08.\n* 14/08/2026\n* by the end of the week\n* in two weeks\n* before Friday\n* until Monday\n* ASAP only if accompanied by a concrete date expression\n\nRules:\n\n* If a deadline is explicitly mentioned, convert it to DD/MM/YYYY.\n* Use the current date in the Europe/Vienna timezone for relative dates.\n* If multiple deadlines exist, return the earliest one.\n* Never invent a deadline.\n* If no deadline is explicitly mentioned, return an empty string.\n\nGeneral rules:\n\n* Never invent information.\n* Never explain your reasoning.\n* Never add markdown.\n* Never wrap the JSON inside code blocks.\n* Return valid JSON only.\n* Validate the category before returning the JSON.\n* If the category is not exactly \"User Story\", \"Technical Task\", or \"Bug\", replace it with the closest valid category.\n\nOutput:\n\n{\n\"name\":\n\"description\": \"\",\n\"category\": \"\",\n\"priority\": \"\",\n}\n",
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.agent",
+      "typeVersion": 3.1,
+      "position": [
+        752,
+        -96
+      ],
+      "id": "cd117aa7-e695-4cd4-a90a-c9501183cd47",
+      "name": "AI Agent",
+      "retryOnFail": true,
+      "onError": "continueErrorOutput"
+    },
+    {
+      "parameters": {
+        "pollTimes": {
+          "item": [
+            {
+              "mode": "everyMinute"
+            }
+          ]
+        },
+        "simple": false,
+        "filters": {},
+        "options": {}
+      },
+      "type": "n8n-nodes-base.gmailTrigger",
+      "typeVersion": 1.4,
+      "position": [
+        -144,
+        160
+      ],
+      "id": "6d72b3aa-2fa6-44d0-8479-91cb59f99a04",
+      "name": "Gmail Trigger",
+      "credentials": {
+        "gmailOAuth2": {
+          "id": "8w8MJG0H1DNdnr2N",
+          "name": "Gmail OAuth2 API"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "operation": "get",
+        "dataTableId": {
+          "__rl": true,
+          "value": "g4amYXnob0xkdNvx",
+          "mode": "list",
+          "cachedResultName": "join-count",
+          "cachedResultUrl": "/projects/JkZXlzrrMuPlaOux/datatables/g4amYXnob0xkdNvx"
+        },
+        "filters": {
+          "conditions": [
+            {
+              "keyName": "key",
+              "keyValue": "daily-limit"
+            }
+          ]
+        }
+      },
+      "type": "n8n-nodes-base.dataTable",
+      "typeVersion": 1.1,
+      "position": [
+        80,
+        160
+      ],
+      "id": "a9d4b92a-61ee-4143-9e2f-593679972c59",
+      "name": "Load Daily Request Counter",
+      "alwaysOutputData": true
+    },
+    {
+      "parameters": {
+        "operation": "update",
+        "dataTableId": {
+          "__rl": true,
+          "value": "g4amYXnob0xkdNvx",
+          "mode": "list",
+          "cachedResultName": "join-count",
+          "cachedResultUrl": "/projects/JkZXlzrrMuPlaOux/datatables/g4amYXnob0xkdNvx"
+        },
+        "filters": {
+          "conditions": [
+            {
+              "keyValue": "={{ $('Load Daily Request Counter').item.json.id }}"
+            }
+          ]
+        },
+        "columns": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "count": 0,
+            "DailyLimit": "={{ Number($now.setZone('Europe/Vienna').toFormat('yyyyMMdd')) }}"
+          },
+          "matchingColumns": [],
+          "schema": [
+            {
+              "id": "key",
+              "displayName": "key",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": true
+            },
+            {
+              "id": "DailyLimit",
+              "displayName": "DailyLimit",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "number",
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "count",
+              "displayName": "count",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "number",
+              "readOnly": false,
+              "removed": false
+            }
+          ],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": false
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.dataTable",
+      "typeVersion": 1.1,
+      "position": [
+        80,
+        -320
+      ],
+      "id": "b32fb228-73e4-4e0a-bbaf-42a8d7ecd8de",
+      "name": "Reset Daily Counter"
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 3
+          },
+          "conditions": [
+            {
+              "id": "4a0ddcb0-a7dc-4dbc-9dcb-d99a5910d4bb",
+              "leftValue": "={{ $json.count }}",
+              "rightValue": 10,
+              "operator": {
+                "type": "number",
+                "operation": "lt"
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.3,
+      "position": [
+        304,
+        160
+      ],
+      "id": "cef388f5-bcec-46ac-a14f-c968d340952f",
+      "name": "Check Daily Request Limit"
+    },
+    {
+      "parameters": {
+        "resource": "thread",
+        "operation": "removeLabels",
+        "threadId": "={{ $('Gmail Trigger').item.json.threadId }}",
+        "labelIds": [
+          "INBOX"
+        ]
+      },
+      "type": "n8n-nodes-base.gmail",
+      "typeVersion": 2.2,
+      "position": [
+        816,
+        320
+      ],
+      "id": "e6714c5e-d06e-49a2-bbe5-115017be5c5b",
+      "name": "Remove label from Inbox",
+      "webhookId": "bd15f2e6-7353-4838-8f85-87cd0c11b0e2",
+      "credentials": {
+        "gmailOAuth2": {
+          "id": "8w8MJG0H1DNdnr2N",
+          "name": "Gmail OAuth2 API"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "sendTo": "={{ $('Gmail Trigger').item.json.from.value[0].address }}",
+        "subject": "Daily Processing Limit Reached",
+        "emailType": "text",
+        "message": "Hello,  Thank you for contacting us.  Unfortunately, your request could not be processed because the daily email processing limit has been reached.  Please try submitting your request again tomorrow.  We apologize for the inconvenience and appreciate your understanding.  Best regards, Join AI Issue Collector",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.gmail",
+      "typeVersion": 2.2,
+      "position": [
+        528,
+        320
+      ],
+      "id": "753b024a-5709-4b07-b024-ad6427131de8",
+      "name": "Daily Limit Error",
+      "webhookId": "8371b011-56e5-4edd-9396-cd9bfa534f29",
+      "credentials": {
+        "gmailOAuth2": {
+          "id": "8w8MJG0H1DNdnr2N",
+          "name": "Gmail OAuth2 API"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "jsCode": "const parsedOutput = JSON.parse($json.output);\n\nreturn [\n  {\n    json: parsedOutput\n  }\n];"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        1104,
+        -80
+      ],
+      "id": "72ce34ea-a123-42a6-90ce-40e8aec08701",
+      "name": "Parse JSON Response"
+    },
+    {
+      "parameters": {
+        "resource": "thread",
+        "operation": "removeLabels",
+        "threadId": "={{ $('Gmail Trigger').item.json.threadId }}",
+        "labelIds": [
+          "INBOX"
+        ]
+      },
+      "type": "n8n-nodes-base.gmail",
+      "typeVersion": 2.2,
+      "position": [
+        2000,
+        112
+      ],
+      "id": "8099b26c-59af-48e7-99ad-eae094cb08ae",
+      "name": "Remove label from Inbox2",
+      "webhookId": "bd15f2e6-7353-4838-8f85-87cd0c11b0e2",
+      "credentials": {
+        "gmailOAuth2": {
+          "id": "8w8MJG0H1DNdnr2N",
+          "name": "Gmail OAuth2 API"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "resource": "thread",
+        "operation": "removeLabels",
+        "threadId": "={{ $('Gmail Trigger').item.json.threadId }}",
+        "labelIds": [
+          "INBOX"
+        ]
+      },
+      "type": "n8n-nodes-base.gmail",
+      "typeVersion": 2.2,
+      "position": [
+        2000,
+        -80
+      ],
+      "id": "c51ddaa5-9d6c-4075-826a-7b8dafde680c",
+      "name": "Remove label from Inbox3",
+      "webhookId": "c04f0288-e46b-4db8-9aa6-ab4cbb2d4f8b",
+      "credentials": {
+        "gmailOAuth2": {
+          "id": "8w8MJG0H1DNdnr2N",
+          "name": "Gmail OAuth2 API"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "resource": "thread",
+        "operation": "addLabels",
+        "threadId": "={{ $('Gmail Trigger').item.json.threadId }}",
+        "labelIds": [
+          "Label_8620692691012250639"
+        ]
+      },
+      "type": "n8n-nodes-base.gmail",
+      "typeVersion": 2.2,
+      "position": [
+        1776,
+        112
+      ],
+      "id": "5da16982-c578-4fb9-afb9-b5ddae893dba",
+      "name": "Move Email to \"To Be Processed\"",
+      "webhookId": "0c7951b9-b989-4e79-814f-87c89c77f950",
+      "credentials": {
+        "gmailOAuth2": {
+          "id": "8w8MJG0H1DNdnr2N",
+          "name": "Gmail OAuth2 API"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "sendTo": "={{ $('Gmail Trigger').item.json.From }}",
+        "subject": "Update Regarding Your Request",
+        "emailType": "text",
+        "message": "Hello,  Thank you for contacting us.  We encountered an unexpected issue while processing your request automatically.  Your email has been received successfully and has been forwarded to our team. A member of our staff will review your request and take care of it as soon as possible.  We apologize for the inconvenience and appreciate your patience.  Best regards, Join AI Issue Collector",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.gmail",
+      "typeVersion": 2.2,
+      "position": [
+        2224,
+        112
+      ],
+      "id": "80ad4500-b03a-455e-9a86-0f3cf53305ea",
+      "name": "Send Error Message",
+      "webhookId": "8371b011-56e5-4edd-9396-cd9bfa534f29",
+      "retryOnFail": true,
+      "credentials": {
+        "gmailOAuth2": {
+          "id": "8w8MJG0H1DNdnr2N",
+          "name": "Gmail OAuth2 API"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "jsCode": "const task = $json;\n\nconst from = $('Gmail Trigger').first().json.From || '';\nconst match = from.match(/<([^>]+)>/);\n\nreturn [\n  {\n    json: {\n      ...task,\n      status: 'triage',\n      assigned_to: [],\n      creator_email: match ? match[1] : from,\n      creator_type: 'email',\n      source: 'gmail',\n      ai_generated: true,\n      \"E-mail\": $('Gmail Trigger').first().json.from.value[0].address,\n      \"username\": $('Gmail Trigger').first().json.from.value[0].name  \n    }\n  }\n];"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        1328,
+        -80
+      ],
+      "id": "6c7ba960-9631-48eb-94fe-6ec15cd9dfd1",
+      "name": "Add Default Task Values"
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "https://join-13fcf-default-rtdb.europe-west1.firebasedatabase.app/tasks.json",
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={{ $json }}",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.4,
+      "position": [
+        1552,
+        -80
+      ],
+      "id": "bc2fba39-84b9-4b95-96d6-25a8d837cb1e",
+      "name": "Save Task to Firebase"
+    },
+    {
+      "parameters": {
+        "operation": "update",
+        "dataTableId": {
+          "__rl": true,
+          "value": "g4amYXnob0xkdNvx",
+          "mode": "list",
+          "cachedResultName": "join-count",
+          "cachedResultUrl": "/projects/JkZXlzrrMuPlaOux/datatables/g4amYXnob0xkdNvx"
+        },
+        "filters": {
+          "conditions": [
+            {
+              "keyValue": "={{ $('Load Daily Request Counter').item.json.id }}"
+            }
+          ]
+        },
+        "columns": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "count": "={{ Number($('Load Daily Request Counter').item.json.count) + 1 }}"
+          },
+          "matchingColumns": [
+            "count"
+          ],
+          "schema": [
+            {
+              "id": "key",
+              "displayName": "key",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": true
+            },
+            {
+              "id": "DailyLimit",
+              "displayName": "DailyLimit",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "number",
+              "readOnly": false,
+              "removed": true
+            },
+            {
+              "id": "count",
+              "displayName": "count",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "number",
+              "readOnly": false,
+              "removed": false
+            }
+          ],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": false
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.dataTable",
+      "typeVersion": 1.1,
+      "position": [
+        528,
+        16
+      ],
+      "id": "1bbe7435-c57f-4820-815d-b81e6ee3207c",
+      "name": "count + 1"
+    },
+    {
+      "parameters": {
+        "resource": "thread",
+        "operation": "addLabels",
+        "threadId": "={{ $('Gmail Trigger').item.json.threadId }}",
+        "labelIds": [
+          "Label_3385917035831576870"
+        ]
+      },
+      "type": "n8n-nodes-base.gmail",
+      "typeVersion": 2.2,
+      "position": [
+        1776,
+        -80
+      ],
+      "id": "0d53a83e-a777-4c54-a3a8-cdc3f1043b17",
+      "name": "Move Email to \"Done\"",
+      "webhookId": "1ad7ba2e-e86a-48a7-b34d-4fc888f007cc",
+      "credentials": {
+        "gmailOAuth2": {
+          "id": "8w8MJG0H1DNdnr2N",
+          "name": "Gmail OAuth2 API"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "sendTo": "={{ $('Gmail Trigger').item.json.from.value[0].address }}",
+        "subject": "Your Ticket Has Been Created Successfully",
+        "emailType": "text",
+        "message": "Hello,  Thank you for contacting us.  Your request has been successfully received and a new ticket has been created in our system.  Our team will review your request as soon as possible and process it accordingly.  Thank you for your patience.  Best regards, Join AI Issue Collector",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.gmail",
+      "typeVersion": 2.2,
+      "position": [
+        2224,
+        -80
+      ],
+      "id": "f4aa90c5-cbe8-4304-8c03-d857f3c0e944",
+      "name": "Send Success Email",
+      "webhookId": "8371b011-56e5-4edd-9396-cd9bfa534f29",
+      "credentials": {
+        "gmailOAuth2": {
+          "id": "8w8MJG0H1DNdnr2N",
+          "name": "Gmail OAuth2 API"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "method": "PATCH",
+        "url": "https://join-13fcf-default-rtdb.europe-west1.firebasedatabase.app/count.json",
+        "sendBody": true,
+        "bodyParameters": {
+          "parameters": [
+            {
+              "name": "count",
+              "value": "={{ $('count + 1').item.json.count }}"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.4,
+      "position": [
+        2448,
+        16
+      ],
+      "id": "0c26a4b8-459b-48a5-85f4-8fbd85c3a4c5",
+      "name": "Update Count Firebase form count + 1"
+    },
+    {
+      "parameters": {
+        "method": "PATCH",
+        "url": "https://join-13fcf-default-rtdb.europe-west1.firebasedatabase.app/count.json",
+        "sendBody": true,
+        "bodyParameters": {
+          "parameters": [
+            {
+              "name": "count",
+              "value": "={{ $('Load Daily Request Counter').item.json.count }}"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.4,
+      "position": [
+        1104,
+        320
+      ],
+      "id": "05cd6411-d6b3-4c67-b366-e10f52335857",
+      "name": "Update Count Firebase form Load Daily Request"
+    },
+    {
+      "parameters": {
+        "method": "PATCH",
+        "url": "https://join-13fcf-default-rtdb.europe-west1.firebasedatabase.app/count.json",
+        "sendBody": true,
+        "bodyParameters": {
+          "parameters": [
+            {
+              "name": "count",
+              "value": "={{ $json.count }}"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.4,
+      "position": [
+        304,
+        -320
+      ],
+      "id": "6acca2e2-4088-464c-a515-856549c17913",
+      "name": "Update Count Firebase from reset Daily count"
+    },
+    {
+      "parameters": {
+        "rule": {
+          "interval": [
+            {}
+          ]
+        }
+      },
+      "type": "n8n-nodes-base.scheduleTrigger",
+      "typeVersion": 1.3,
+      "position": [
+        -144,
+        -320
+      ],
+      "id": "c95cbc51-76f8-4162-973c-60eafbf0e06b",
+      "name": "Schedule Trigger"
+    }
+  ],
+  "pinData": {},
+  "connections": {
+    "Google Gemini Chat Model": {
+      "ai_languageModel": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "ai_languageModel",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "AI Agent": {
+      "main": [
+        [
+          {
+            "node": "Parse JSON Response",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Move Email to \"To Be Processed\"",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Gmail Trigger": {
+      "main": [
+        [
+          {
+            "node": "Load Daily Request Counter",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Load Daily Request Counter": {
+      "main": [
+        [
+          {
+            "node": "Check Daily Request Limit",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Check Daily Request Limit": {
+      "main": [
+        [
+          {
+            "node": "count + 1",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Daily Limit Error",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Daily Limit Error": {
+      "main": [
+        [
+          {
+            "node": "Remove label from Inbox",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Parse JSON Response": {
+      "main": [
+        [
+          {
+            "node": "Add Default Task Values",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Remove label from Inbox2": {
+      "main": [
+        [
+          {
+            "node": "Send Error Message",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Remove label from Inbox3": {
+      "main": [
+        [
+          {
+            "node": "Send Success Email",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Move Email to \"To Be Processed\"": {
+      "main": [
+        [
+          {
+            "node": "Remove label from Inbox2",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Add Default Task Values": {
+      "main": [
+        [
+          {
+            "node": "Save Task to Firebase",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Save Task to Firebase": {
+      "main": [
+        [
+          {
+            "node": "Move Email to \"Done\"",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "count + 1": {
+      "main": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Move Email to \"Done\"": {
+      "main": [
+        [
+          {
+            "node": "Remove label from Inbox3",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Reset Daily Counter": {
+      "main": [
+        [
+          {
+            "node": "Update Count Firebase from reset Daily count",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Remove label from Inbox": {
+      "main": [
+        [
+          {
+            "node": "Update Count Firebase form Load Daily Request",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Send Error Message": {
+      "main": [
+        [
+          {
+            "node": "Update Count Firebase form count + 1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Send Success Email": {
+      "main": [
+        [
+          {
+            "node": "Update Count Firebase form count + 1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Update Count Firebase from reset Daily count": {
+      "main": [
+        []
+      ]
+    },
+    "Schedule Trigger": {
+      "main": [
+        [
+          {
+            "node": "Reset Daily Counter",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": false,
+  "settings": {
+    "executionOrder": "v1",
+    "binaryMode": "separate",
+    "availableInMCP": false
+  },
+  "versionId": "fcb84f55-0335-4c9a-9e3d-2fc74e30d4c2",
+  "meta": {
+    "templateCredsSetupCompleted": true,
+    "instanceId": "7864b7cf6afc71819e9753b073581a5ef0e59948c2d9b2b48065396a95c4bd27"
+  },
+  "nodeGroups": [],
+  "id": "8VzBCMoJaKoDhVXf",
+  "tags": []
+}

@@ -38,6 +38,43 @@ function openTaskOverlay(taskIndex, event) {
 }
 
 /**
+ * This function renders the Ai image for the current task overlay
+ * 
+ * @param {number} taskIndex - This is the index number from the tasks array  
+ */
+function renderAiImage(taskIndex) {
+    if (tasks[taskIndex].ai_generated === true) {
+        return aiImageTemplate();
+    }else{return  ''}
+}
+
+/**
+ * This function renders the Extern image for the current task overlay
+ * 
+ * @param {number} taskIndex - This is the index number from the tasks array  
+ */
+function renderExternImage(taskIndex) {
+    if (tasks[taskIndex].ai_generated === true) {
+        return externImageTemplate();
+    } else {
+        return memberImageTemplate();
+    }
+}
+
+/**
+ * This function renders the mail image for the current task overlay
+ * 
+ * @param {number} taskIndex - This is the index number from the tasks array  
+ */
+function renderMailImage(taskIndex) {
+    if (tasks[taskIndex].ai_generated === true) {
+        return sendMailImageTemplate();
+    }else{
+        return profileImageTemplate();
+    }
+}
+
+/**
  * This function gets the contacts which are assigned to the current task
  * 
  * @param {number} taskIndex - This is the index number from the tasks array 

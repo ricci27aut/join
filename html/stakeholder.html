@@ -13,8 +13,8 @@
 
 <body onload="init()">
     <header>
-            <img class="logo-img" src="../assets/icons/join-main-logo.png" alt="Join Logo">
-        </header>
+        <img class="logo-img" src="../assets/icons/join-main-logo.png" alt="Join Logo">
+    </header>
     <main class="max-width">
         <div class="request-container"><a href="../index.html"><img
                     src="../assets/icons/welcome/arrow-left-black.png"></a>
@@ -22,10 +22,17 @@
         </div>
         <h1>Welcome</h1>
 
+        <div class="mobile-header">
+            <div class="mobile-header-content">
+                <h1 class="margin-block-0">Welcome</h1><a href="../index.html"><img src="../assets/icons/arrow-left-line.png"></a>
+            </div>
+             <div id="userFeedbackMobile" class="user-feedback mobile-p"></div>
+        </div>
+
         <div class="section-one" id="section-one">
             <div class="text-container">
                 <span class="sup-title">Easily create a ticket by sending an email — no extra steps needed.</span>
-                 <img class="bord-img" src="../assets/icons/welcome/lady-bord.png" alt="Lady Bord">
+                <img class="bord-img" src="../assets/icons/welcome/lady-bord.png" alt="Lady Bord">
                 <p class="p-font">On this platform, you can submit your feature requests via email. Our AI system will
                     automatically generate a ticket with a deadline and priority level. </p>
                 <p class="p-font">A total of 10 requests can be created per day. After this limit, emails can still be
@@ -33,21 +40,23 @@
                     they will be manually reviewed by our team instead of generating AI tickets.</p>
                 <button class="btn-style" onclick="openGmail()">Create Email Request<img
                         src="../assets/icons/check-btn.png"></button>
+                        <button class="mobile-btn">Create request</button>
             </div>
-           
+
         </div>
 
         <div class="section-one dnone" id="section-two">
             <div class="text-container">
                 <span class="sup-title-red">The daily 10-request limit has been reached!</span>
+                 <img class="bord-img" src="../assets/icons/welcome/man-bord.png" alt="Man Bord">
                 <p class="p-font">Need more? No worries — you can still send emails, but our team will review them
                     manually instead
                     of using AI to create tickets.</p>
                 <button class="btn-style" onclick="openGmail()">
                     Send an email<img src="../assets/icons/check-btn.png">
                 </button>
+                <button class="mobile-btn">Create request</button>
             </div>
-            <img class="bord-img" src="../assets/icons/welcome/man-bord.png" alt="Man Bord">
         </div>
     </main>
 
